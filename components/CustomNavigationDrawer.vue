@@ -1,5 +1,18 @@
 <script setup lang="ts">
 import type { NavigationMenu } from "~/model/NavigationMenu";
+import { useDisplay } from "vuetify/framework";
+
+const showNav = inject<Ref<boolean>>("show-nav")
+
+const isMobile = ref(false)
+if(import.meta.client) {
+  const { mobile } = useDisplay()
+  watch(mobile, () => {
+    isMobile.value = mobile.value
+  })
+}
+
+const showDrawer = computed(() => !isMobile.value || (showNav !== undefined && showNav.value) )
 
 const menus: NavigationMenu[] = [
   {
@@ -22,9 +35,15 @@ const menus: NavigationMenu[] = [
 
 <template>
   <client-only>
-    <v-navigation-drawer elevation="0" class="border-b-sm border-opacity-100" expand-on-hover rail>
+    <v-navigation-drawer
+        elevation="0"
+        class="border-b-sm border-opacity-100"
+        :expand-on-hover="!isMobile"
+        :rail="!isMobile"
+        v-model="showDrawer"
+    >
       <v-list>
-        <v-list-item prepend-icon="mdi-account-circle">
+        <v-list-item prepend-icon="mdi-account-circle" to="/my-page">
           <v-list-item-title>todo: Nickname 추가하기</v-list-item-title>
           <v-list-item-subtitle>todo: id 추가하기</v-list-item-subtitle>
         </v-list-item>

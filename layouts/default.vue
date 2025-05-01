@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+provide("show-nav", ref(false))
 </script>
 
 <template>
