@@ -13,7 +13,7 @@ if(import.meta.client) {
 
   //todo: 이 후 세션을 다루는 코드 추가할 것
   const sessionId = useCookie("sessionId")
-  logined.value = sessionId !== undefined
+  logined.value = sessionId.value !== undefined
 }
 
 const toggleNavDrawer = () => {
@@ -30,14 +30,12 @@ const toggleNavDrawer = () => {
     <v-app-bar-title>
       Code Snacc
     </v-app-bar-title>
-    <v-btn border="md opacity-100" v-if="logined">
-      <v-icon>mdi-login</v-icon>
+    <custom-btn-with-icon icon="mdi-login" v-if="!logined">
       login
-    </v-btn>
-    <v-btn border="md opacity-100" v-else>
-      <v-icon>mdi-logout</v-icon>
+    </custom-btn-with-icon>
+    <custom-btn-with-icon icon="mdi-logout" v-else>
       logout
-    </v-btn>
+    </custom-btn-with-icon>
   </v-app-bar>
 </template>
 
