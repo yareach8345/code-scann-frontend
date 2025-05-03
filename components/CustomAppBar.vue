@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useTheme } from "vuetify";
+
 interface Props {
   mobile?: boolean
 }
@@ -6,6 +8,13 @@ interface Props {
 const { mobile } = defineProps<Props>()
 
 const showNav = inject<Ref<boolean>>("show-nav")
+
+const theme = useTheme()
+
+const iconPath = computed(() => {
+  const imageName = theme.global.current.value.dark ? 'dark-icon.png' : 'light-icon.png'
+  return `/icons/${imageName}`
+})
 
 const toggleNavDrawer = () => {
   if(showNav && mobile)
@@ -20,8 +29,11 @@ const toggleNavDrawer = () => {
           <v-app-bar-nav-icon v-if="mobile" @click="toggleNavDrawer"/>
       </v-expand-x-transition>
     </client-only>
-    <v-app-bar-title>
-      Code Snacc
+    <v-app-bar-title class="ml-3">
+      <div class="d-flex align-center">
+        <v-img max-height="40" max-width="40" cover :src="iconPath"/>
+        Code Snacc
+      </div>
     </v-app-bar-title>
     <login-logout-button/>
   </v-app-bar>
