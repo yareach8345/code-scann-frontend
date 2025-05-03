@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import navigationItems from "@/constants/navigationItems";
+import {useLoginStore} from "~/stores/loginStore";
 
 interface Props {
   mobile?: boolean
@@ -8,6 +9,9 @@ interface Props {
 const { mobile } = defineProps<Props>()
 
 const showNav = inject<Ref<boolean>>("show-nav")
+
+const loginStore = useLoginStore()
+const { loggedIn, displayedName, userInfo } = toRefs(loginStore)
 
 </script>
 
@@ -22,8 +26,8 @@ const showNav = inject<Ref<boolean>>("show-nav")
     >
       <v-list>
         <v-list-item prepend-icon="mdi-account-circle" to="/my-page">
-          <v-list-item-title>todo: Nickname 추가하기</v-list-item-title>
-          <v-list-item-subtitle>todo: id 추가하기</v-list-item-subtitle>
+          <v-list-item-title>{{displayedName}}</v-list-item-title>
+          <v-list-item-subtitle>{{userInfo?.id}}</v-list-item-subtitle>
         </v-list-item>
         <v-divider class="border-opacity-100 mx-2"/>
         <v-list-item v-for="navigationItem in navigationItems" :prepend-icon="navigationItem.icon" :to="navigationItem.to">
