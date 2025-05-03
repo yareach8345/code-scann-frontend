@@ -2,7 +2,7 @@
 import {useLoginStore} from "~/stores/loginStore";
 
 const loginStore = useLoginStore()
-const { loggedIn, displayedName, userInfo } = toRefs(loginStore)
+const { loggedIn, displayedName, userInfo } = storeToRefs(loginStore)
 </script>
 
 <template>
