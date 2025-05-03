@@ -2,6 +2,7 @@ import {defineStore} from "pinia";
 import type {UserInfo} from "~/model/UserInfo";
 import {authCheck, sendLogoutRequest, sendLoginRequest} from "~/utils/authRequests";
 import {getMyInfo} from "~/utils/userRequests";
+import type {LoginDto} from "~/dto/login/LoginDto";
 
 export const useLoginStore = defineStore('loginStore', () => {
     const userInfo = ref<UserInfo | null>(null)
@@ -15,8 +16,8 @@ export const useLoginStore = defineStore('loginStore', () => {
         }
     }
 
-    async function login(username: string, password: string) {
-        userInfo.value = await sendLoginRequest(username, password)
+    async function login(loginDto: LoginDto) {
+        userInfo.value = await sendLoginRequest(loginDto)
     }
 
     async function logout() {

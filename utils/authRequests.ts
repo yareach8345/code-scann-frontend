@@ -1,8 +1,9 @@
 import type {AuthCheckResponseDto} from "~/dto/login/AuthCheckResponseDto";
 import type {UserInfo} from "~/model/UserInfo";
+import type {LoginDto} from "~/dto/login/LoginDto";
 
-export async function sendLoginRequest(username: string, password: string): Promise<UserInfo> {
-    console.log(`trying login with username=${username}`)
+export async function sendLoginRequest(loginDto: LoginDto): Promise<UserInfo> {
+    console.log(`trying login with username=${loginDto.username}`)
 
     const userInfo = await $fetch<UserInfo>("http://localhost:8080/auth/login", {
         method: "POST",
@@ -10,8 +11,9 @@ export async function sendLoginRequest(username: string, password: string): Prom
             "Content-Type": "application/x-www-form-urlencoded",
         },
         body: new URLSearchParams({
-            username,
-            password
+            username: loginDto.username,
+            password: loginDto.password,
+            rememberMe: loginDto.rememberMe ? "true" : "false"
         }),
         credentials: "include"
     })
