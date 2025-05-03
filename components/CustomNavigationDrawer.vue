@@ -9,10 +9,6 @@ interface Props {
 const { mobile } = defineProps<Props>()
 
 const showNav = inject<Ref<boolean>>("show-nav")
-
-const loginStore = useLoginStore()
-const { loggedIn, displayedName, userInfo } = toRefs(loginStore)
-
 </script>
 
 <template>
@@ -25,10 +21,7 @@ const { loggedIn, displayedName, userInfo } = toRefs(loginStore)
         v-model="showNav"
     >
       <v-list>
-        <v-list-item prepend-icon="mdi-account-circle" to="/my-page">
-          <v-list-item-title>{{displayedName}}</v-list-item-title>
-          <v-list-item-subtitle>{{userInfo?.id}}</v-list-item-subtitle>
-        </v-list-item>
+        <account-view-item/>
         <v-divider class="border-opacity-100 mx-2"/>
         <v-list-item v-for="navigationItem in navigationItems" :prepend-icon="navigationItem.icon" :to="navigationItem.to">
           <v-list-item-title>{{navigationItem.title}}</v-list-item-title>

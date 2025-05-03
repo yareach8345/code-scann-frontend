@@ -4,7 +4,7 @@ import type {UserInfo} from "~/model/UserInfo";
 export const useLoginStore = defineStore('loginStore', () => {
     const userInfo = ref<UserInfo | null>(null)
     const loggedIn = computed(() => userInfo.value !== null)
-    const displayedName = computed(() => userInfo.value?.nickname ?? userInfo.value?.id)
+    const displayedName = computed(() => userInfo.value?.nickname ?? userInfo.value?.id ?? "unlogged")
 
     if(process.env.MODE === 'test') {
         console.log('======== you are in test mode ========')
