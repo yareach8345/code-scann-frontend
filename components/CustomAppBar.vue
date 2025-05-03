@@ -1,23 +1,21 @@
 <script setup lang="ts">
-import { useDisplay } from "vuetify/framework";
+interface Props {
+  mobile?: boolean
+}
 
-const isMobile = ref(false)
+const { mobile } = defineProps<Props>()
+
 const showNav = inject<Ref<boolean>>("show-nav")
-const logined = ref(false)
+const loggedIn = ref(false)
 
 if(import.meta.client) {
-  const { mobile } = useDisplay()
-  watch(mobile, () => {
-    isMobile.value = mobile.value
-  })
-
   //todo: 이 후 세션을 다루는 코드 추가할 것
   const sessionId = useCookie("sessionId")
-  logined.value = sessionId.value !== undefined
+  loggedIn.value = sessionId.value !== undefined
 }
 
 const toggleNavDrawer = () => {
-  if(showNav)
+  if(showNav && mobile)
     showNav.value = !showNav.value
 }
 </script>
@@ -25,12 +23,12 @@ const toggleNavDrawer = () => {
 <template>
   <v-app-bar elevation="0" class="border-b-sm border-opacity-100">
     <v-expand-x-transition>
-      <v-app-bar-nav-icon v-if="isMobile" @click="toggleNavDrawer"/>
+      <v-app-bar-nav-icon v-if="mobile" @click="toggleNavDrawer"/>
     </v-expand-x-transition>
     <v-app-bar-title>
       Code Snacc
     </v-app-bar-title>
-    <custom-btn-with-icon icon="mdi-login" v-if="!logined">
+    <custom-btn-with-icon icon="mdi-login" v-if="!loggedIn">
       login
     </custom-btn-with-icon>
     <custom-btn-with-icon icon="mdi-logout" v-else>
