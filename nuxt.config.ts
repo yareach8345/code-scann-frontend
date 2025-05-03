@@ -15,12 +15,16 @@ export default defineNuxtConfig({
         }))
       })
     },
+    '@pinia/nuxt',
   ],
+  pinia: {
+    storesDirs: ['./scores/**']
+  },
   vite: {
     vue: {
       template: {
         transformAssetUrls
       }
     }
-  }
+  },
 })
