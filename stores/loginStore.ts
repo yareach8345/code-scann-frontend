@@ -27,22 +27,10 @@ export const useLoginStore = defineStore('loginStore', () => {
         await sendLogoutRequest()
     }
 
-    if(process.env.MODE === 'test') {
-        console.log('======== you are in test mode ========')
-        userInfo.value = {
-            id: 'test-id',
-            nickName: 'test-user-1234',
-            role: 'user',
-            banned: false,
-            quit: false,
-            warnCnt: 0,
-        }
-    } else {
-        if(import.meta.client) {
-            initialize()
-                .then(() => console.log('initialized'))
-                .catch(e => console.error(e))
-        }
+    if(import.meta.client) {
+        initialize()
+            .then(() => console.log('initialized'))
+            .catch(e => console.error(e))
     }
 
     return {
