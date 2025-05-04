@@ -18,7 +18,8 @@ export const useLoginStore = defineStore('loginStore', () => {
 
     async function login(loginDto: LoginDto) {
         const loginResult = await sendLoginRequest(loginDto)
-        userInfo.value = await getMyInfo()
+        if(loginResult.success)
+            userInfo.value = await getMyInfo()
     }
 
     async function logout() {
