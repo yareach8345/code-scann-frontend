@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {useLoginStore} from "~/stores/loginStore";
+import ErrorAlert from "~/components/alerts/ErrorAlert.vue";
 
 const { login } = useLoginStore()
 
@@ -61,17 +62,15 @@ const clickCloseButton = () => {
         >
           <v-text-field label="id" v-model="loginInfo.id"></v-text-field>
           <v-text-field type="password" label="password" v-model="loginInfo.password"></v-text-field>
-          <v-checkbox label="날 기억해줘!" v-model="loginInfo.rememberMe"/>
-          <v-btn type="submit" elevation="0" class="border-opacity-100 border-md">로그안으로!</v-btn>
-          <v-btn elevation="0" class="border-md border-opacity-100" @click="clickCloseButton">닫기</v-btn>
+          <v-checkbox label="날 기억해줘!" name="rememberMe" v-model="loginInfo.rememberMe"/>
+          <custom-btn submit>로그안으로!</custom-btn>
+          <custom-btn @click="clickCloseButton">닫기</custom-btn>
         </v-form>
       </v-sheet>
     </v-card>
-    <v-expand-transition>
-      <div v-if="error" class="w-100 text-center position-absolute top-100 text-error text-md-h6 pb-5">
-        로그인에 실패했습니다.
-      </div>
-    </v-expand-transition>
+    <error-alert :show="error">
+      로그인에 실패했습니다.
+    </error-alert>
   </div>
 </template>
 

@@ -13,18 +13,18 @@ const openLoginDialog = () => {
 
 <template>
   <div v-if="!loggedIn">
-    <custom-btn-with-icon icon="mdi-account-box-edit-outline" to="/join">
+    <custom-btn icon="mdi-account-box-edit-outline" to="/join">
       join us
-    </custom-btn-with-icon>
-    <custom-btn-with-icon icon="mdi-login" v-if="!loggedIn" @click="openLoginDialog">
+    </custom-btn>
+    <custom-btn icon="mdi-login" v-if="!loggedIn" @click="openLoginDialog">
       login
-    </custom-btn-with-icon>
+    </custom-btn>
   </div>
   <div v-else>
     hello {{displayedName}}!
-    <custom-btn-with-icon icon="mdi-logout" @click="logout">
+    <custom-btn icon="mdi-logout" @click="logout">
       logout
-    </custom-btn-with-icon>
+    </custom-btn>
   </div>
 </template>
 
