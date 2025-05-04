@@ -1,5 +1,4 @@
 import type {AuthCheckResponseDto} from "~/dto/login/AuthCheckResponseDto";
-import type {UserInfo} from "~/model/UserInfo";
 import type {LoginDto} from "~/dto/login/LoginDto";
 import type {LogoutResultDto} from "~/dto/login/LogoutResultDto";
 import type {LoginResultDto} from "~/dto/login/LoginResultDto";
@@ -19,11 +18,11 @@ export async function sendLoginRequest(loginDto: LoginDto): Promise<LoginResultD
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }
     )
-    const userInfo = response.data
+    const loginResult = response.data
 
-    console.log(`loginResponse=${JSON.stringify(userInfo)}`)
+    console.log(`loginResponse=${JSON.stringify(loginResult)}`)
 
-    return userInfo
+    return loginResult
 }
 
 export async function authCheck(): Promise<boolean> {

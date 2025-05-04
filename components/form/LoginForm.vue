@@ -52,25 +52,27 @@ const clickCloseButton = () => {
 </script>
 
 <template>
-  <v-card class="pa-3 border-md border-opacity-100 position-relative" :border="borderColor" elevation="0">
-    <v-card-title>로그안으로!</v-card-title>
-    <v-sheet>
-      <v-form
-          @submit.prevent="clickLoginButton"
-      >
-        <v-text-field label="id" v-model="loginInfo.id" required></v-text-field>
-        <v-text-field type="password" label="password" v-model="loginInfo.password" required></v-text-field>
-        <v-checkbox label="날 기억해줘!" v-model="loginInfo.rememberMe"/>
-        <v-btn type="submit" elevation="0" class="border-opacity-100 border-md">로그안으로!</v-btn>
-        <v-btn elevation="0" class="border-md border-opacity-100" @click="clickCloseButton">닫기</v-btn>
-      </v-form>
-    </v-sheet>
+  <div class="position-relative">
+    <v-card class="pa-3 border-sm border-opacity-100" :border="borderColor" elevation="0">
+      <v-card-title>로그안으로!</v-card-title>
+      <v-sheet>
+        <v-form
+            @submit.prevent="clickLoginButton"
+        >
+          <v-text-field label="id" v-model="loginInfo.id"></v-text-field>
+          <v-text-field type="password" label="password" v-model="loginInfo.password"></v-text-field>
+          <v-checkbox label="날 기억해줘!" v-model="loginInfo.rememberMe"/>
+          <v-btn type="submit" elevation="0" class="border-opacity-100 border-md">로그안으로!</v-btn>
+          <v-btn elevation="0" class="border-md border-opacity-100" @click="clickCloseButton">닫기</v-btn>
+        </v-form>
+      </v-sheet>
+    </v-card>
     <v-expand-transition>
-      <div v-if="error" class="w-100 text-center position-absolute bottom-0 text-error text-md-h6 pb-5">
+      <div v-if="error" class="w-100 text-center position-absolute top-100 text-error text-md-h6 pb-5">
         로그인에 실패했습니다.
       </div>
     </v-expand-transition>
-  </v-card>
+  </div>
 </template>
 
 <style scoped>
