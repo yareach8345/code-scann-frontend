@@ -1,9 +1,11 @@
 import type {UserInfo} from "~/model/UserInfo";
 
 export async function getMyInfo() {
-    const getMyInfoResponse = await $fetch<UserInfo>("http://localhost:8080/user/me", {
-        credentials: "include"
-    })
+    const { $axios } = useNuxtApp()
+    const response = await $axios<UserInfo>("/user/me")
+    const getMyInfoResponse = response.data
+
     console.log(`getMyInfoResponse=${JSON.stringify(getMyInfoResponse)}`)
+
     return getMyInfoResponse
 }

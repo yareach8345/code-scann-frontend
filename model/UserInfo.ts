@@ -1,6 +1,6 @@
 export interface UserInfo {
     id: string
-    nickname: string | undefined
+    nickName: string | undefined
     role: string
     banned: boolean
     quit: boolean
