@@ -14,7 +14,7 @@ const emits = defineEmits<Emits>()
 </script>
 
 <template>
-  <v-btn border="md opacity-100" :to="to" @click="() => emits('click')">
+  <v-btn border="md opacity-100" class="ma-1" :to="to" @click="() => emits('click')">
     <ClientOnly>
       <v-icon>{{icon}}</v-icon>
     </ClientOnly>

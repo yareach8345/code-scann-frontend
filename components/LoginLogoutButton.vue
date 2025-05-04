@@ -13,6 +13,9 @@ const openLoginDialog = () => {
 
 <template>
   <div v-if="!loggedIn">
+    <custom-btn-with-icon icon="mdi-account-box-edit-outline" to="/join">
+      join us
+    </custom-btn-with-icon>
     <custom-btn-with-icon icon="mdi-login" v-if="!loggedIn" @click="openLoginDialog">
       login
     </custom-btn-with-icon>
