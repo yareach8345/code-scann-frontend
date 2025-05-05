@@ -76,9 +76,9 @@ const onSubmit = async () => {
 <template>
   <v-container class="d-flex flex-column align-center">
     <v-sheet class="text-lg-h5 font-weight-medium">회원가입</v-sheet>
-    <v-card class="pa-3 ma-3 w-100 w-sm-75 w-lg-50" elevation="0" border="sm opacity-100">
+    <v-card class="pa-3 ma-3 w-100 w-sm-75 w-lg-50" elevation="0" border="sm">
       <v-card-title class="font-weight-regular">정보입력</v-card-title>
-      <v-divider class="mb-3 opacity-100"/>
+      <v-divider class="mb-3"/>
       <v-form @submit.prevent="onSubmit" ref="form">
         <v-text-field label="아이디" v-model="id" :rules="idRules" @input="resetIsDuplicate"/>
         <v-text-field label="비밀번호" v-model="password" type="password" :rules="passwordRules" />

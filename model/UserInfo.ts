@@ -5,4 +5,5 @@ export interface UserInfo {
     banned: boolean
     quit: boolean
     warnCnt: number
+    icon: string
 }

@@ -23,7 +23,7 @@ const toggleNavDrawer = () => {
 </script>
 
 <template>
-  <v-app-bar elevation="0" class="border-b-sm border-opacity-100">
+  <v-app-bar elevation="0" class="border-b-sm">
     <client-only>
       <v-expand-x-transition>
           <v-app-bar-nav-icon v-if="mobile" @click="toggleNavDrawer"/>

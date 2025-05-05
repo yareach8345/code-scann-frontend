@@ -54,7 +54,7 @@ const clickCloseButton = () => {
 
 <template>
   <div class="position-relative">
-    <v-card class="pa-3 border-sm border-opacity-100" :border="borderColor" elevation="0">
+    <v-card class="pa-3 border-sm" :border="borderColor" elevation="0">
       <v-card-title>로그안으로!</v-card-title>
       <v-sheet>
         <v-form

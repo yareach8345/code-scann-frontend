@@ -10,7 +10,10 @@ const openLoginDialog = () => {
 </script>
 
 <template>
-  <v-list-item prepend-icon="mdi-account-circle" to="/my-page" v-if="loggedIn">
+  <v-list-item to="/my-page" v-if="loggedIn">
+    <template v-slot:prepend>
+      <user-account-icon/>
+    </template>
     <v-list-item-title>{{displayedName}}</v-list-item-title>
     <v-list-item-subtitle>{{userInfo?.id}}</v-list-item-subtitle>
   </v-list-item>

@@ -17,7 +17,7 @@ const emits = defineEmits<Emits>()
 </script>
 
 <template>
-  <v-btn :type="btnType" border="md opacity-100" class="ma-1" elevation="0" :to="to" @click="() => emits('click')">
+  <v-btn :type="btnType" border="md" class="ma-1" elevation="0" :to="to" @click="() => emits('click')">
     <ClientOnly v-if="icon !== undefined">
       <v-icon>{{icon}}</v-icon>
     </ClientOnly>

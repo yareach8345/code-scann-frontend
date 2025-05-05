@@ -5,4 +5,5 @@ export interface UserInfoDto {
     banned: boolean
     quit: boolean
     warnCnt: number
+    icon: string
 }

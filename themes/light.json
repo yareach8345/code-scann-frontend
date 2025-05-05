@@ -1,0 +1,14 @@
+{
+  "dark": false,
+  "colors": {
+    "background": "white",
+    "error": "red-accent-2",
+    "info": "yellow-lighten-3",
+    "success": "light-blue-lighten-3",
+    "highlight1": "green-lighten-1"
+  },
+  "variables": {
+    "border-color": "black",
+    "border-opacity": 1
+  }
+}
