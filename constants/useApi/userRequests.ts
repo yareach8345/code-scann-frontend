@@ -1,6 +1,7 @@
 import type {UserInfo} from "~/model/UserInfo";
 import type {UserExistenceResponse} from "~/dto/user/UserExistenceResponse";
 import type {UserInfoDto} from "~/dto/user/UserInfoDto";
+import type {JoinDto} from "~/dto/user/JoinDto";
 
 export async function getMyInfo() {
     const { $axios } = useNuxtApp()
@@ -22,4 +23,10 @@ export async function checkIdExist(id: string) {
     console.log(`check id exist response=${JSON.stringify(checkIdExistResponse)}`)
 
     return checkIdExistResponse
+}
+
+export async function sendJoinRequest(joinDto: JoinDto) {
+    const { $axios } = useNuxtApp()
+    const joinResult = $axios.post<UserInfoDto>("/user", joinDto)
+    console.log(`joinResult=${JSON.stringify(joinResult)}`)
 }
