@@ -4,6 +4,12 @@ import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
+  runtimeConfig: {
+    API_BASE_URL: process.env.API_BASE_URL,
+    public: {
+      API_BASE_URL: process.env.API_BASE_URL,
+    }
+  },
   build: {
     transpile: ['vuetify'],
   },
