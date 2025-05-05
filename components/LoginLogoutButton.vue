@@ -21,7 +21,9 @@ const openLoginDialog = () => {
     </custom-btn>
   </div>
   <div v-else>
-    hello {{displayedName}}!
+    <custom-anchor to="/my-page">
+      <u>hello {{displayedName}}!</u>
+    </custom-anchor>
     <custom-btn icon="mdi-logout" @click="logout">
       logout
     </custom-btn>
