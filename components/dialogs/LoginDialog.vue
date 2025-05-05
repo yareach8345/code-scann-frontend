@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LoginForm from "~/components/form/LoginForm.vue";
+import LoginForm from "~/components/forms/LoginForm.vue";
 
 const active = useState("active-login-dialog", () => false)
 const onClose = () => {

@@ -5,11 +5,13 @@ import {
   lengthMoreThan,
   notIncludeSpace
 } from "~/utils/inputValidators";
+import UserIconSelector from "~/components/forms/inputs/UserIconSelector.vue";
 
 const id = ref("")
 const password = ref("")
 const passwordCheck = ref("")
 const nickName = ref("")
+const userIcon = ref("")
 
 const isDuplicate = ref(false)
 
@@ -53,7 +55,8 @@ const onSubmit = async () => {
   const checkResult = await checkId()
   isDuplicate.value = checkResult.isExists
 
-  form.value?.validate()
+  const validateResult = await form.value?.validate()
+  if(!validateResult.valid) return
 
   console.log(checkResult.isExists)
   if(checkResult.isExists) {
@@ -65,6 +68,7 @@ const onSubmit = async () => {
       id: id.value,
       password: password.value,
       nickName: nickName.value.length > 0 ? nickName.value : null,
+      icon: userIcon.value.length > 0 ? userIcon.value : null,
     }
     await sendJoinRequest(joinDto)
     useState<boolean>("active-login-dialog").value = true
@@ -84,6 +88,7 @@ const onSubmit = async () => {
         <v-text-field label="비밀번호" v-model="password" type="password" :rules="passwordRules" />
         <v-text-field label="비밀번호 확인" v-model="passwordCheck" type="password" :rules="passwordCheckRules" />
         <v-text-field label="닉네임(선택)" v-model="nickName" />
+        <user-icon-selector v-model:value="userIcon"/><br>
         <custom-btn submit>회원가입</custom-btn>
       </v-form>
     </v-card>
