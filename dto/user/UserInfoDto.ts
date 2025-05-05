@@ -1,4 +1,4 @@
-export interface UserInfo {
+export interface UserInfoDto {
     id: string
     nickName?: string
     role: string

@@ -1,14 +1,15 @@
 import type {UserInfo} from "~/model/UserInfo";
 import type {UserExistenceResponse} from "~/dto/user/UserExistenceResponse";
+import type {UserInfoDto} from "~/dto/user/UserInfoDto";
 
 export async function getMyInfo() {
     const { $axios } = useNuxtApp()
-    const response = await $axios<UserInfo>("/user/me")
-    const getMyInfoResponse = response.data
+    const { data } = await $axios<UserInfoDto>("/user/me")
+    const userInfo: UserInfo = { ...data }
 
-    console.log(`getMyInfoResponse=${JSON.stringify(getMyInfoResponse)}`)
+    console.log(`getMyInfoResponse=${JSON.stringify(userInfo)}`)
 
-    return getMyInfoResponse
+    return userInfo
 }
 
 export async function checkIdExist(id: string) {
