@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import {useLoginStore} from "~/stores/loginStore";
 
+interface Props {
+  viewonly?: boolean
+}
+
+const { viewonly } = withDefaults(defineProps<Props>(), {
+  viewonly: false,
+})
+
+const linkToMyPage = viewonly ? undefined : "/my-page"
+
 const loginStore = useLoginStore()
 const { loggedIn, displayedName, userInfo } = storeToRefs(loginStore)
 const activeLoginDialog = useState<boolean>("active-login-dialog")
@@ -10,7 +20,7 @@ const openLoginDialog = () => {
 </script>
 
 <template>
-  <v-list-item to="/my-page" v-if="loggedIn">
+  <v-list-item :to="linkToMyPage" v-if="loggedIn" :active="false">
     <template v-slot:prepend>
       <user-account-icon/>
     </template>

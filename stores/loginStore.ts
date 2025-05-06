@@ -11,8 +11,10 @@ export const useLoginStore = defineStore('loginStore', () => {
 
     async function initialize() {
         const isAuth = await authCheck()
+        console.log(`isAuth=${isAuth}`)
         if(isAuth) {
             userInfo.value = await getMyInfo()
+            console.log(`userInfo=${JSON.stringify(userInfo.value)}`)
         }
     }
 

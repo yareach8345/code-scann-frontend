@@ -8,7 +8,7 @@ const { icon, to } = defineProps<Props>()
 </script>
 
 <template>
-  <v-btn class="ma-1 border-0" elevation="0" :to="to">
+  <v-btn class="ma-1 border-0" elevation="0" :to="to" :active="false">
     <ClientOnly v-if="icon !== undefined">
       <v-icon>{{icon}}</v-icon>
     </ClientOnly>

@@ -6,7 +6,7 @@ const { userInfo } = storeToRefs(store)
 </script>
 
 <template>
-  <v-badge location="bottom right" color="success" v-if="userInfo?.role === 'ADMIN'">
+  <v-badge dot location="bottom right" color="success" v-if="userInfo?.role === 'ADMIN'">
     <v-icon border="thin">{{userInfo?.icon}}</v-icon>
   </v-badge>
   <v-icon v-else>{{userInfo?.icon}}</v-icon>

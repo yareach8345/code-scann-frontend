@@ -1,6 +1,6 @@
 export interface UserInfo {
     id: string
-    nickName?: string
+    nickName: string | null
     role: string
     banned: boolean
     quit: boolean
