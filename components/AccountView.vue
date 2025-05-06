@@ -3,13 +3,13 @@ import type {UserInfoDto} from "~/dto/user/UserInfoDto";
 
 interface Props {
   viewonly?: boolean,
-  displayName: string,
   userInfo: UserInfoDto
 }
 
 const props = defineProps<Props>()
 const viewonly = props.viewonly ? props.viewonly : false
-const { userInfo, displayName } = toRefs(props)
+const { userInfo } = toRefs(props)
+const displayName = computed(() => getDisplayName(userInfo.value))
 
 const linkToMyPage = viewonly ? undefined : "/my-page"
 </script>

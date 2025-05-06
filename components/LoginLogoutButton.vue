@@ -4,7 +4,8 @@ import {useLoginStore} from "~/stores/loginStore";
 const activeLoginDialog = useState<boolean>("active-login-dialog")
 const loginStore = useLoginStore()
 const { logout } = loginStore
-const { loggedIn, displayName } = storeToRefs(loginStore)
+const { loggedIn, userInfo } = storeToRefs(loginStore)
+const displayName = computed(() => getDisplayName(userInfo.value))
 
 const openLoginDialog = () => {
   activeLoginDialog.value = true
