@@ -9,12 +9,20 @@ export const useLoginStore = defineStore('loginStore', () => {
     const loggedIn = computed(() => userInfo.value !== null)
     const displayedName = computed(() => userInfo.value?.nickName ?? userInfo.value?.id ?? "unlogged")
 
+    async function readUserInfo() {
+        userInfo.value = await getMyInfo()
+        console.log(`userInfo=${JSON.stringify(userInfo.value)}`)
+    }
+
+    async function updateUserInfo() {
+        await readUserInfo()
+    }
+
     async function initialize() {
         const isAuth = await authCheck()
         console.log(`isAuth=${isAuth}`)
         if(isAuth) {
-            userInfo.value = await getMyInfo()
-            console.log(`userInfo=${JSON.stringify(userInfo.value)}`)
+            await readUserInfo()
         }
     }
 
@@ -41,5 +49,6 @@ export const useLoginStore = defineStore('loginStore', () => {
         displayedName,
         login,
         logout,
+        updateUserInfo
     }
 })

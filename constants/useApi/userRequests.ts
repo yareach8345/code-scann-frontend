@@ -2,6 +2,7 @@ import type {UserInfo} from "~/model/UserInfo";
 import type {UserExistenceResponse} from "~/dto/user/UserExistenceResponse";
 import type {UserInfoDto} from "~/dto/user/UserInfoDto";
 import type {JoinDto} from "~/dto/user/JoinDto";
+import type {UserInfoUpdateDto} from "~/dto/user/UserInfoUpdateDto";
 
 export async function getMyInfo() {
     const { $axios } = useNuxtApp()
@@ -29,4 +30,11 @@ export async function sendJoinRequest(joinDto: JoinDto) {
     const { $axios } = useNuxtApp()
     const joinResult = $axios.post<UserInfoDto>("/user", joinDto)
     console.log(`joinResult=${JSON.stringify(joinResult)}`)
+}
+
+export async function sendUpdateRequest(updateDto: UserInfoUpdateDto) {
+    const { $axios } = useNuxtApp()
+    const { data } = await $axios.patch<UserInfoDto>("/user/me", updateDto)
+    console.log(`updateResult=${JSON.stringify(data)}`)
+    return data
 }
