@@ -41,7 +41,6 @@ export async function sendUpdateRequest(updateDto: UserInfoUpdateDto) {
 export async function getUserData(id: string) {
     const { $axios } = useNuxtApp()
     console.log(`trying to get user data for id=${id}`)
-    const { data } = await $axios.patch<UserInfoDto>(`/user/${id}`)
-    console.log(`got user data for ${id}=${JSON.stringify(data)}`)
+    const { data } = await $axios.get<UserInfoDto>(`/user/${id}`)
     return data
 }
