@@ -5,7 +5,7 @@ import {getMyInfo} from "~/constants/useApi/userRequests";
 import type {LoginDto} from "~/dto/login/LoginDto";
 
 export const useLoginStore = defineStore('loginStore', () => {
-    const userInfo = ref<UserInfo | null>(null)
+    const userInfo = ref<UserInfo | undefined>(undefined)
     const loggedIn = computed(() => userInfo.value !== null)
     const displayedName = computed(() => userInfo.value?.nickName ?? userInfo.value?.id ?? "unlogged")
 
@@ -25,7 +25,7 @@ export const useLoginStore = defineStore('loginStore', () => {
     }
 
     async function logout() {
-        userInfo.value = null
+        userInfo.value = undefined
         await sendLogoutRequest()
     }
 
