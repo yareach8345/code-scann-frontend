@@ -2,6 +2,7 @@
 import {checkIdExist, sendJoinRequest} from "~/constants/useApi/userRequests";
 import * as validators from "~/utils/inputValidators";
 import UserIconSelector from "~/components/forms/inputs/UserIconSelector.vue";
+import ErrorAlert from "~/components/alerts/ErrorAlert.vue";
 
 const id = ref("")
 const password = ref("")
@@ -36,19 +37,22 @@ const passwordCheckRules = [
   (value: string) => value === password.value || '앞서 입력한 비밀번호와 일치하지 않습니다.'
 ]
 
+const error = ref(false)
+
 const onSubmit = async () => {
   const checkResult = await checkId()
   isDuplicate.value = checkResult.isExists
 
   const validateResult = await form.value?.validate()
-  if(!validateResult.valid) return
+  if(!validateResult.valid) {
+    error.value = true
+    setTimeout(() => {
+      error.value = false
+    }, 3000)
+  }
 
   console.log(checkResult.isExists)
-  if(checkResult.isExists) {
-    //true라는 것은 존재한다는 것
-    console.log("존재")
-  } else {
-    console.log("존재x")
+  if(!checkResult.isExists) {
     const joinDto = {
       id: id.value,
       password: password.value,
@@ -63,7 +67,7 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <v-container class="d-flex flex-column align-center">
+  <v-container class="d-flex flex-column align-center position-relative">
     <v-sheet class="text-lg-h5 font-weight-medium">회원가입</v-sheet>
     <v-card class="pa-3 ma-3 w-100 w-sm-75 w-lg-50" elevation="0" border="sm">
       <v-card-title class="font-weight-regular">정보입력</v-card-title>
@@ -77,6 +81,9 @@ const onSubmit = async () => {
         <custom-btn submit>회원가입</custom-btn>
       </v-form>
     </v-card>
+    <error-alert :show="error">
+      회원가입에 실패 했습니다.
+    </error-alert>
   </v-container>
 </template>
 
