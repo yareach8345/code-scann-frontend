@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import {useLoginStore} from "~/stores/loginStore";
+import type {UserInfo} from "~/model/UserInfo";
 
-const store = useLoginStore()
-const { userInfo } = storeToRefs(store)
+interface Props {
+  userInfo: UserInfo
+}
+
+const {userInfo} = defineProps<Props>()
 </script>
 
 <template>

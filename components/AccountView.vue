@@ -17,7 +17,7 @@ const linkToMyPage = viewonly ? undefined : "/my-page"
 <template>
   <v-list-item :to="linkToMyPage" :active="false">
     <template v-slot:prepend>
-      <user-account-icon/>
+      <user-account-icon :user-info="userInfo"/>
     </template>
     <v-list-item-title>{{displayedName}}</v-list-item-title>
     <v-list-item-subtitle>{{userInfo?.id}}</v-list-item-subtitle>
