@@ -43,11 +43,11 @@ const onSubmit = async () => {
 
 <template>
   <v-sheet class="ma-5 d-flex justify-center position-relative">
-    <v-card border="sm" elevation="0" max-width="600" class="flex-grow-1">
+    <v-card border="sm" elevation="0" max-width="600" class="flex-grow-1 pa-4">
       <v-card-title>내 정보</v-card-title>
       <v-divider class="mx-2"/>
       <div v-if="newUserInfo !== null &&  newNickName != undefined">
-        <account-view :user-info="newUserInfo" :displayed-name="newNickName" class="border-thin ma-4 py-2" />
+        <account-view class="border-thin mx-2 my-4 py-2" :user-info="userInfo!" :displayed-name="displayedName" viewonly/>
         <v-form @submit.prevent="onSubmit">
           <info-raw th="id"><v-text-field label="id" v-model="newUserInfo.id" disabled/></info-raw>
           <info-raw th="유저 아이콘"><user-icon-selector v-model:value="newUserInfo.icon"/></info-raw>
