@@ -12,7 +12,7 @@ interface Emits {
 const { value } = defineProps<Props>()
 const emits = defineEmits<Emits>()
 
-const selectedIcon = ref(value)
+const selectedIcon = ref(value.length === 0 ? "mdi-account-circle" : value)
 
 const icons: SelectItem[] = [
   { title: "account", value: "mdi-account-circle" },
