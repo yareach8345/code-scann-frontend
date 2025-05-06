@@ -47,7 +47,7 @@ const onSubmit = async () => {
       <v-card-title>내 정보</v-card-title>
       <v-divider class="mx-2"/>
       <div v-if="newUserInfo !== null &&  newNickName != undefined">
-        <account-view class="border-thin mx-2 my-4 py-2" :user-info="userInfo!" :displayed-name="displayedName" viewonly/>
+        <account-view class="border-thin mx-2 my-4 py-2" :user-info="newUserInfo" :displayed-name="newNickName" viewonly/>
         <v-form @submit.prevent="onSubmit">
           <info-raw th="id"><v-text-field label="id" v-model="newUserInfo.id" disabled/></info-raw>
           <info-raw th="유저 아이콘"><user-icon-selector v-model:value="newUserInfo.icon"/></info-raw>
