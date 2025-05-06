@@ -4,7 +4,7 @@ import {useLoginStore} from "~/stores/loginStore";
 const activeLoginDialog = useState<boolean>("active-login-dialog")
 const loginStore = useLoginStore()
 const { logout } = loginStore
-const { loggedIn, displayedName } = storeToRefs(loginStore)
+const { loggedIn, displayName } = storeToRefs(loginStore)
 
 const openLoginDialog = () => {
   activeLoginDialog.value = true
@@ -22,7 +22,7 @@ const openLoginDialog = () => {
   </div>
   <div v-else>
     <custom-anchor to="/my-page">
-      <u>hello {{displayedName}}!</u>
+      <u>hello {{ displayName }}!</u>
     </custom-anchor>
     <custom-btn icon="mdi-logout" @click="logout">
       logout

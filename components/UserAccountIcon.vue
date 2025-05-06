@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type {UserInfo} from "~/model/UserInfo";
+import type {UserInfoDto} from "~/dto/user/UserInfoDto";
 
 interface Props {
-  userInfo: UserInfo
+  userInfo: UserInfoDto
 }
 
 const {userInfo} = defineProps<Props>()

@@ -1,13 +1,14 @@
+import type {UserInfoDto} from "~/dto/user/UserInfoDto";
 import {defineStore} from "pinia";
-import type {UserInfo} from "~/model/UserInfo";
 import {authCheck, sendLogoutRequest, sendLoginRequest} from "~/constants/useApi/authRequests";
 import {getMyInfo} from "~/constants/useApi/userRequests";
 import type {LoginDto} from "~/dto/login/LoginDto";
+import {getDisplayName} from "@/utils/user";
 
 export const useLoginStore = defineStore('loginStore', () => {
-    const userInfo = ref<UserInfo | null>(null)
+    const userInfo = ref<UserInfoDto | null>(null)
     const loggedIn = computed(() => userInfo.value !== null)
-    const displayedName = computed(() => userInfo.value?.nickName ?? userInfo.value?.id ?? "unlogged")
+    const displayName = computed(() => getDisplayName(userInfo?.value))
 
     async function readUserInfo() {
         userInfo.value = await getMyInfo()
@@ -46,7 +47,7 @@ export const useLoginStore = defineStore('loginStore', () => {
     return {
         userInfo,
         loggedIn,
-        displayedName,
+        displayName,
         login,
         logout,
         updateUserInfo
