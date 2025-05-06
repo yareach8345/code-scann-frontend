@@ -28,6 +28,7 @@ export async function sendLoginRequest(loginDto: LoginDto): Promise<LoginResultD
 export async function authCheck(): Promise<boolean> {
     const { $axios } = useNuxtApp()
 
+    console.log(`trying auth check`)
     const response = await $axios.get<AuthCheckResponseDto>("/auth/check")
     const authCheckResponse = response.data
 

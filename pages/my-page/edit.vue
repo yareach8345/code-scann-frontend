@@ -7,15 +7,15 @@ import {sendUpdateRequest} from "~/constants/useApi/userRequests";
 
 const loginStore = useLoginStore()
 const {updateUserInfo} = loginStore
-const {userInfo, displayedName} = storeToRefs(loginStore)
+const {userInfo, displayName} = storeToRefs(loginStore)
 
 const newUserInfo = ref(userInfo.value ? {...userInfo.value} : null)
-const newNickName = ref(displayedName.value)
+const newNickName = ref(displayName.value)
 
 watch(userInfo, () => {
   newUserInfo.value = userInfo.value ? {...userInfo.value} : null
 })
-watch(displayedName, () => newNickName.value = displayedName.value)
+watch(displayName, () => newNickName.value = displayName.value)
 
 const error = ref(false)
 
@@ -47,7 +47,7 @@ const onSubmit = async () => {
       <v-card-title>내 정보</v-card-title>
       <v-divider class="mx-2"/>
       <div v-if="newUserInfo !== null &&  newNickName != undefined">
-        <account-view class="border-thin mx-2 my-4 py-2" :user-info="newUserInfo" :displayed-name="newNickName" viewonly/>
+        <account-view class="border-thin mx-2 my-4 py-2" :user-info="newUserInfo" :display-name="newNickName" viewonly/>
         <v-form @submit.prevent="onSubmit">
           <info-raw th="id"><v-text-field label="id" v-model="newUserInfo.id" disabled/></info-raw>
           <info-raw th="유저 아이콘"><user-icon-selector v-model:value="newUserInfo.icon"/></info-raw>
