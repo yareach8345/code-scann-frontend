@@ -7,9 +7,9 @@ interface Props {
   userInfo: UserInfo
 }
 
-const { viewonly, userInfo, displayedName } = withDefaults(defineProps<Props>(), {
-  viewonly: false,
-})
+const props = defineProps<Props>()
+const viewonly = props.viewonly ? props.viewonly : false
+const { userInfo, displayedName } = toRefs(props)
 
 const linkToMyPage = viewonly ? undefined : "/my-page"
 </script>

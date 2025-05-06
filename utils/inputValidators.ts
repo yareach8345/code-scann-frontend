@@ -54,3 +54,24 @@ export function contextualValidator(value: boolean, message: string): Validator<
         message
     )
 }
+
+const idRulesInstance = [
+    notEmpty("id를 입력 해주세요."),
+    notIncludeSpace("id는 공백을 포함할 수 없습니다."),
+    lengthMoreThan(1, "id는 1자 이상이어야 합니다."),
+    lengthLessThan(255, "id는 255자 이하여야 합니다."),
+]
+export function idRules(): Validator<string>[] {
+    return idRulesInstance
+}
+
+const passwordRulesInstance = [
+    notEmpty("비밀번호를 입력 해주세요"),
+    notIncludeSpace("비밀번호는 공백을 포함할 수 없습니다."),
+    lengthMoreThan(8, "비밀번호는 8자 이상이어야 합니다."),
+    lengthLessThan(255, "비밀번호는 255자 이하여야 합니다."),
+]
+
+export function passwordRules(): Validator<string>[] {
+    return passwordRulesInstance
+}

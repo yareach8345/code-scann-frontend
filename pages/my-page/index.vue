@@ -12,11 +12,11 @@ const showAdminInfo = computed(() => userInfo.value?.banned == false && userInfo
     <v-card border="sm" elevation="0" max-width="600" class="flex-grow-1">
       <v-card-title>내 정보</v-card-title>
       <v-divider class="mx-2"/>
-      <account-view-item class="border-thin ma-4 py-2" viewonly/>
-        <info-raw th="유저 아이콘"><v-icon>{{userInfo?.icon}}</v-icon></info-raw>
-        <info-raw th="id">{{userInfo?.id}}</info-raw>
-        <info-raw th="닉네임">{{displayedName}}<sub v-if="userInfo?.nickName === null">(기본값 id 사용)</sub></info-raw>
-        <info-raw th="경고">{{userInfo?.warnCnt}}</info-raw>
+      <account-view class="border-thin ma-4 py-2" :user-info="userInfo!" :displayed-name="displayedName" viewonly/>
+      <info-raw th="유저 아이콘"><v-icon>{{userInfo?.icon}}</v-icon></info-raw>
+      <info-raw th="id">{{userInfo?.id}}</info-raw>
+      <info-raw th="닉네임">{{displayedName}}<sub v-if="userInfo?.nickName === null">(기본값 id 사용)</sub></info-raw>
+      <info-raw th="경고">{{userInfo?.warnCnt}}</info-raw>
       <user-info-card
           color="success"
           icon="mdi-shield-crown-outline"

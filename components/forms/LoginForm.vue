@@ -60,8 +60,8 @@ const clickCloseButton = () => {
         <v-form
             @submit.prevent="clickLoginButton"
         >
-          <v-text-field label="id" v-model="loginInfo.id"></v-text-field>
-          <v-text-field type="password" label="password" v-model="loginInfo.password"></v-text-field>
+          <v-text-field label="id" v-model="loginInfo.id" :rules="idRules()"></v-text-field>
+          <v-text-field type="password" label="password" v-model="loginInfo.password" :rules="passwordRules()"></v-text-field>
           <v-checkbox label="날 기억해줘!" name="rememberMe" v-model="loginInfo.rememberMe"/>
           <custom-btn submit>로그안으로!</custom-btn>
           <custom-btn @click="clickCloseButton">닫기</custom-btn>

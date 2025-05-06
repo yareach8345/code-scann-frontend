@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import {checkIdExist, sendJoinRequest} from "~/constants/useApi/userRequests";
-import {
-  lengthLessThan,
-  lengthMoreThan,
-  notIncludeSpace
-} from "~/utils/inputValidators";
+import * as validators from "~/utils/inputValidators";
 import UserIconSelector from "~/components/forms/inputs/UserIconSelector.vue";
 
 const id = ref("")
@@ -29,25 +25,14 @@ const resetIsDuplicate = () => {
 }
 
 const idRules = [
-  notEmpty("id를 입력 해주세요."),
-  notIncludeSpace("id는 공백을 포함할 수 없습니다."),
-  lengthMoreThan(1, "id는 1자 이상이어야 합니다."),
-  lengthLessThan(255, "id는 255자 이하여야 합니다."),
+  ...validators.idRules(),
   (_: string) => !isDuplicate.value || "이미 존재하는 id입니다. 다른 id를 사용해주세요."
 ]
 
-const passwordRules = [
-  notEmpty("비밀번호를 입력 해주세요"),
-  notIncludeSpace("비밀번호는 공백을 포함할 수 없습니다."),
-  lengthMoreThan(8, "비밀번호는 8자 이상이어야 합니다."),
-  lengthLessThan(255, "비밀번호는 255자 이하여야 합니다."),
-]
+const passwordRules = validators.passwordRules()
 
 const passwordCheckRules = [
-  notEmpty("비밀번호 확인란을 입력 해주세요"),
-  notIncludeSpace("비밀번호는 공백을 포함할 수 없습니다."),
-  lengthMoreThan(8, "비밀번호는 8자 이상이어야 합니다."),
-  lengthLessThan(255, "비밀번호는 255자 이하여야 합니다."),
+  ...validators.passwordRules(),
   (value: string) => value === password.value || '앞서 입력한 비밀번호와 일치하지 않습니다.'
 ]
 
