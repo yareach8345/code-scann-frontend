@@ -1,4 +1,8 @@
 <script setup lang="ts">
+useHead({
+  title: "회원가입"
+})
+
 import {checkIdExist, sendJoinRequest} from "~/constants/useApi/userRequests";
 import * as validators from "~/utils/inputValidators";
 import UserIconSelector from "~/components/forms/inputs/UserIconSelector.vue";

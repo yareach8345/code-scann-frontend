@@ -1,4 +1,8 @@
 <script setup lang="ts">
+useHead({
+  title: "로그인"
+})
+
 import LoginForm from "~/components/forms/LoginForm.vue";
 
 const router = useRouter()

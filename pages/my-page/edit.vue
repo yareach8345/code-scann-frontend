@@ -1,4 +1,8 @@
 <script setup lang="ts">
+useHead({
+  title: "내 정보 수정",
+})
+
 import {useLoginStore} from "~/stores/loginStore";
 import UserIconSelector from "~/components/forms/inputs/UserIconSelector.vue";
 import type {UserInfoUpdateDto} from "~/dto/user/UserInfoUpdateDto";

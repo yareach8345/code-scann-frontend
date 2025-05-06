@@ -1,5 +1,8 @@
 <script setup lang="ts">
-  console.log("hello")
+useHead({
+  title: "게시판"
+})
+console.log("hello")
 </script>
 
 <template>

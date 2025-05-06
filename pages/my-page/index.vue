@@ -1,8 +1,17 @@
 <script setup lang="ts">
+import type {UserInfoDto} from "~/dto/user/UserInfoDto";
+
+useHead({
+  title: "내 페이지"
+})
+
 import {useLoginStore} from "~/stores/loginStore";
+import {getMyInfo} from "~/constants/useApi/userRequests";
 
 const loginStore = useLoginStore()
 const { userInfo } = storeToRefs(loginStore)
+const { data } = await useAsyncData<UserInfoDto>("get-my-data", async () => getMyInfo())
+console.log(data.value)
 </script>
 
 <template>

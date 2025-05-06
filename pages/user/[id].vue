@@ -23,7 +23,17 @@ const showAdminInfo = computed(() => userInfo?.banned == false && userInfo?.role
   <v-sheet class="d-flex justify-center pa-5">
     <v-card border="sm" elevation="0" max-width="600" class="flex-grow-1 pa-4">
       <v-card-title>{{displayName}} 유저 정보</v-card-title>
+      <v-divider/>
       <user-info-view :user-info="userInfo"/>
+      <v-divider/>
+      {{displayName}} 게시글
+      <!-- 임시용 더미데이터 -->
+      <v-card border="sm" elevation="0" class="ma-2">
+        <v-card-title>임시 더미데이터 게시글1</v-card-title>
+      </v-card>
+      <v-card border="sm" elevation="0" class="ma-2">
+        <v-card-title>임시 더미데이터 게시글2</v-card-title>
+      </v-card>
     </v-card>
   </v-sheet>
 </template>

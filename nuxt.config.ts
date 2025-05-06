@@ -10,6 +10,11 @@ export default defineNuxtConfig({
       API_BASE_URL: process.env.API_BASE_URL,
     }
   },
+  app: {
+    head: {
+      titleTemplate: '%s | Code Snacc',
+    }
+  },
   build: {
     transpile: ['vuetify'],
   },
