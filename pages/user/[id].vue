@@ -20,11 +20,10 @@ const showAdminInfo = computed(() => userInfo?.banned == false && userInfo?.role
 </script>
 
 <template>
-  <v-sheet>
+  <v-sheet class="d-flex justify-center pa-5">
     <v-card border="sm" elevation="0" max-width="600" class="flex-grow-1 pa-4">
       <v-card-title>{{displayName}} 유저 정보</v-card-title>
-      <account-view class="border-thin mx-2 my-4 py-2" :user-info="userInfo" :display-name="displayName" viewonly/>
-      <user-info-detail :user-info="userInfo"/>
+      <user-info-view :user-info="userInfo"/>
     </v-card>
   </v-sheet>
 </template>
