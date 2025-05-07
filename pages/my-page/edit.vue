@@ -1,13 +1,17 @@
 <script setup lang="ts">
-useHead({
-  title: "내 정보 수정",
-})
-
+import {definePageMeta} from "#imports";
 import {useLoginStore} from "~/stores/loginStore";
 import UserIconSelector from "~/components/forms/inputs/UserIconSelector.vue";
 import type {UserInfoUpdateDto} from "~/dto/user/UserInfoUpdateDto";
 import ErrorAlert from "~/components/alerts/ErrorAlert.vue";
 import {sendUpdateRequest} from "~/constants/useApi/userRequests";
+
+useHead({
+  title: "내 정보 수정",
+})
+definePageMeta({
+  middleware: "login-check"
+})
 
 const loginStore = useLoginStore()
 const {updateUserInfo} = loginStore

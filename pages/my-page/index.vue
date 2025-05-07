@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import type {UserInfoDto} from "~/dto/user/UserInfoDto";
+import {useLoginStore} from "~/stores/loginStore";
+import {getMyInfo} from "~/constants/useApi/userRequests";
+import {definePageMeta} from "#imports";
+
 
 useHead({
   title: "내 페이지"
 })
-
-import {useLoginStore} from "~/stores/loginStore";
-import {getMyInfo} from "~/constants/useApi/userRequests";
+definePageMeta({
+  middleware: "login-check"
+})
 
 const loginStore = useLoginStore()
 const { userInfo } = storeToRefs(loginStore)
