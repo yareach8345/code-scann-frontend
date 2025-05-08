@@ -9,9 +9,6 @@ import {sendUpdateRequest} from "~/constants/useApi/userRequests";
 useHead({
   title: "내 정보 수정",
 })
-definePageMeta({
-  middleware: "login-check"
-})
 
 const loginStore = useLoginStore()
 const {updateUserInfo} = loginStore
@@ -20,6 +17,13 @@ const displayName = computed(() => getDisplayName(userInfo.value))
 
 const newUserInfo = ref(userInfo.value ? {...userInfo.value} : null)
 const newNickName = ref(displayName.value)
+
+watch(newNickName, () => {
+  console.log(newNickName.value)
+  if(newUserInfo.value) {
+    newUserInfo.value.nickName = newNickName.value
+  }
+})
 
 watch(userInfo, () => {
   newUserInfo.value = userInfo.value ? {...userInfo.value} : null
@@ -31,12 +35,16 @@ const error = ref(false)
 const router = useRouter()
 
 const onSubmit = async () => {
+  const nickNameField = { value: newNickName.value.length > 0 ? newNickName.value : null }
+  const iconField = { value: newUserInfo.value?.icon ?? null }
   const userInfoUpdateDto: UserInfoUpdateDto = {
-    icon: newUserInfo.value?.icon,
-    nickName: newNickName.value,
+    icon: iconField,
+    nickName: nickNameField
   }
+  console.log(`change to = ${JSON.stringify(userInfoUpdateDto)}`)
   try {
-    await sendUpdateRequest(userInfoUpdateDto)
+    const data = await sendUpdateRequest(userInfoUpdateDto)
+    console.log(`UPDATE SUCCESS??? ${JSON.stringify(data)}`)
     await updateUserInfo()
     alert("유저 정보가 변경 되었습니다.")
     await router.push("/my-page")
@@ -60,7 +68,7 @@ const onSubmit = async () => {
         <v-form @submit.prevent="onSubmit">
           <info-raw th="id"><v-text-field label="id" v-model="newUserInfo.id" disabled/></info-raw>
           <info-raw th="유저 아이콘"><user-icon-selector v-model:value="newUserInfo.icon"/></info-raw>
-          <info-raw th="닉네임"><v-text-field label="새로운 닉네임" v-model="newNickName"/></info-raw>
+          <info-raw th="닉네임"><v-text-field label="새로운 닉네임" v-model="newNickName" placeholder="입력하지 않을 시 id를 닉네임처럼 사용합니다."/></info-raw>
           <custom-btn submit>수정하기</custom-btn>
         </v-form>
       </div>

@@ -8,9 +8,6 @@ import {definePageMeta} from "#imports";
 useHead({
   title: "내 페이지"
 })
-definePageMeta({
-  middleware: "login-check"
-})
 
 const loginStore = useLoginStore()
 const { userInfo } = storeToRefs(loginStore)
