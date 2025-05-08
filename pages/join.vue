@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import {definePageMeta} from "#imports";
+
 useHead({
   title: "회원가입"
+})
+definePageMeta({
+  middleware: ['logout-check']
 })
 
 import {checkIdExist, sendJoinRequest} from "~/constants/useApi/userRequests";

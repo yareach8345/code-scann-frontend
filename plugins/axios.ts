@@ -8,7 +8,8 @@ export default defineNuxtPlugin(() => {
         withCredentials: true,
         timeout: 10000,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            ...useRequestHeaders(['cookie'])
         }
     })
 

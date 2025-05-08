@@ -9,6 +9,9 @@ import {sendUpdateRequest} from "~/constants/useApi/userRequests";
 useHead({
   title: "내 정보 수정",
 })
+definePageMeta({
+  middleware: ['login-check']
+})
 
 const loginStore = useLoginStore()
 const {updateUserInfo} = loginStore

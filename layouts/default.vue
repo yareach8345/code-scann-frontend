@@ -3,7 +3,19 @@ import { useDisplay } from "vuetify/framework";
 import LoginDialog from "~/components/dialogs/LoginDialog.vue";
 
 const isMobile = ref(false)
-const showNav = ref(true)
+
+/**
+ * 네비게이션 상태 (생각 정리하며 한 메모)
+ *
+ * PC
+ *  상시 열려있음 - true
+ *
+ * Mobile
+ *  default로 평소에 닫혀있다가 - false
+ *  버튼을 눌리면 toggle
+ */
+// console.log(isMobile.value)
+const showNav = ref(!isMobile.value)
 if(import.meta.client) {
   const { mobile } = useDisplay()
   isMobile.value = mobile.value
