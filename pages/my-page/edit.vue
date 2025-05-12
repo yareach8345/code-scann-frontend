@@ -42,7 +42,7 @@ const onSubmit = async () => {
   const iconField = { value: newUserInfo.value?.icon ?? null }
   const userInfoUpdateDto: UserInfoUpdateDto = {
     icon: iconField,
-    nickName: nickNameField
+    nickname: nickNameField
   }
   console.log(`change to = ${JSON.stringify(userInfoUpdateDto)}`)
   try {

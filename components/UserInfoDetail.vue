@@ -13,7 +13,7 @@ const showAdminInfo = computed(() => userInfo?.banned == false && userInfo?.role
 <template>
   <info-raw th="유저 아이콘"><v-icon>{{userInfo.icon}}</v-icon></info-raw>
   <info-raw th="id">{{userInfo.id}}</info-raw>
-  <info-raw th="닉네임">{{ displayName }}<sub v-if="userInfo?.nickName === null">(기본값 id 사용)</sub></info-raw>
+  <info-raw th="닉네임">{{ displayName }}<sub v-if="userInfo?.nickname === null">(기본값 id 사용)</sub></info-raw>
   <info-raw th="경고">{{userInfo.warnCnt}}</info-raw>
   <user-info-card
       color="success"

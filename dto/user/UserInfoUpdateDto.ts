@@ -4,6 +4,6 @@ interface Field<T> {
 
 export interface UserInfoUpdateDto {
     password?: Field<string>
-    nickName?: Field<string>
+    nickname?: Field<string>
     icon?: Field<string>
 }

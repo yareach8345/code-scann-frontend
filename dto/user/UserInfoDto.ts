@@ -1,6 +1,6 @@
 export interface UserInfoDto {
     id: string
-    nickName: string | null
+    nickname: string | null
     role: string
     banned: boolean
     quit: boolean
