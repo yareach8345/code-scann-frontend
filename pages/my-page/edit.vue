@@ -19,18 +19,18 @@ const {userInfo} = storeToRefs(loginStore)
 const displayName = computed(() => getDisplayName(userInfo.value))
 
 const newUserInfo = ref(userInfo.value ? {...userInfo.value} : null)
-const newNickName = ref(displayName.value)
+const newnickname = ref(displayName.value)
 
-watch(newNickName, () => {
-  console.log(newNickName.value)
+watch(newnickname, () => {
+  console.log(newnickname.value)
   if(newUserInfo.value) {
-    newUserInfo.value.nickName = newNickName.value
+    newUserInfo.value.nickname = newnickname.value
   }
 })
 
 watch(userInfo, () => {
   newUserInfo.value = userInfo.value ? {...userInfo.value} : null
-  newNickName.value = displayName.value
+  newnickname.value = displayName.value
 })
 
 const error = ref(false)
@@ -38,11 +38,11 @@ const error = ref(false)
 const router = useRouter()
 
 const onSubmit = async () => {
-  const nickNameField = { value: newNickName.value.length > 0 ? newNickName.value : null }
+  const nicknameField = { value: newnickname.value.length > 0 ? newnickname.value : null }
   const iconField = { value: newUserInfo.value?.icon ?? null }
   const userInfoUpdateDto: UserInfoUpdateDto = {
     icon: iconField,
-    nickname: nickNameField
+    nickname: nicknameField
   }
   console.log(`change to = ${JSON.stringify(userInfoUpdateDto)}`)
   try {
@@ -66,7 +66,7 @@ const onSubmit = async () => {
     <v-card border="sm" elevation="0" max-width="600" class="flex-grow-1 pa-4">
       <v-card-title>내 정보</v-card-title>
       <v-divider class="mx-2"/>
-      <div v-if="newUserInfo !== null &&  newNickName != undefined">
+      <div v-if="newUserInfo !== null &&  newnickname != undefined">
         <account-view class="border-thin mx-2 my-4 py-2" :user-info="newUserInfo" viewonly/>
         <v-form @submit.prevent="onSubmit">
           <info-raw th="id"><v-text-field label="id" v-model="newUserInfo.id" disabled/></info-raw>

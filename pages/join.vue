@@ -16,7 +16,7 @@ import ErrorAlert from "~/components/alerts/ErrorAlert.vue";
 const id = ref("")
 const password = ref("")
 const passwordCheck = ref("")
-const nickName = ref("")
+const nickname = ref("")
 const userIcon = ref("")
 
 const isDuplicate = ref(false)
@@ -65,7 +65,7 @@ const onSubmit = async () => {
     const joinDto = {
       id: id.value,
       password: password.value,
-      nickName: nickName.value.length > 0 ? nickName.value : null,
+      nickname: nickname.value.length > 0 ? nickname.value : null,
       icon: userIcon.value.length > 0 ? userIcon.value : null,
     }
     await sendJoinRequest(joinDto)
@@ -85,7 +85,7 @@ const onSubmit = async () => {
         <v-text-field label="아이디" v-model="id" :rules="idRules" @input="resetIsDuplicate"/>
         <v-text-field label="비밀번호" v-model="password" type="password" :rules="passwordRules" />
         <v-text-field label="비밀번호 확인" v-model="passwordCheck" type="password" :rules="passwordCheckRules" />
-        <v-text-field label="닉네임(선택)" v-model="nickName" />
+        <v-text-field label="닉네임(선택)" v-model="nickname" />
         <user-icon-selector v-model:value="userIcon"/><br>
         <custom-btn submit>회원가입</custom-btn>
       </v-form>
