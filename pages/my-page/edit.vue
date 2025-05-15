@@ -14,7 +14,7 @@ definePageMeta({
 })
 
 const loginStore = useLoginStore()
-const {updateUserInfo} = loginStore
+const {updateUserInfo, userQuit} = loginStore
 const {userInfo} = storeToRefs(loginStore)
 const displayName = computed(() => getDisplayName(userInfo.value))
 
@@ -59,6 +59,10 @@ const onSubmit = async () => {
     }, 3000)
   }
 }
+
+const quit = async () => {
+  await userQuit()
+}
 </script>
 
 <template>
@@ -73,6 +77,7 @@ const onSubmit = async () => {
           <info-raw th="유저 아이콘"><user-icon-selector v-model:value="newUserInfo.icon"/></info-raw>
           <info-raw th="닉네임"><v-text-field label="새로운 닉네임" v-model="newNickname" placeholder="입력하지 않을 시 id를 닉네임처럼 사용합니다."/></info-raw>
           <custom-btn submit>수정하기</custom-btn>
+          <custom-btn @click="quit">탈퇴</custom-btn>
         </v-form>
       </div>
     </v-card>

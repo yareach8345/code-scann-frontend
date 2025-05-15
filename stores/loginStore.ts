@@ -1,12 +1,16 @@
 import type {UserInfoDto} from "~/dto/user/UserInfoDto";
 import {defineStore} from "pinia";
 import {authCheck, sendLogoutRequest, sendLoginRequest} from "~/constants/useApi/authRequests";
-import {getMyInfo} from "~/constants/useApi/userRequests";
+import {getMyInfo, sendQuitRequest} from "~/constants/useApi/userRequests";
 import type {LoginDto} from "~/dto/login/LoginDto";
 
 export const useLoginStore = defineStore('loginStore', () => {
     const userInfo = ref<UserInfoDto | null>(null)
     const loggedIn = computed(() => userInfo.value !== null)
+
+    async function clearUserInfo() {
+        userInfo.value = null
+    }
 
     async function readUserInfo() {
         userInfo.value = await getMyInfo()
@@ -27,13 +31,19 @@ export const useLoginStore = defineStore('loginStore', () => {
 
     async function login(loginDto: LoginDto) {
         const loginResult = await sendLoginRequest(loginDto)
-        if(loginResult.success)
-            userInfo.value = await getMyInfo()
+        if(loginResult.success) {
+            await readUserInfo()
+        }
     }
 
     async function logout() {
-        userInfo.value = null
+        await clearUserInfo()
         await sendLogoutRequest()
+    }
+
+    async function userQuit() {
+        await clearUserInfo()
+        await sendQuitRequest()
     }
 
     if(import.meta.client) {
@@ -47,6 +57,7 @@ export const useLoginStore = defineStore('loginStore', () => {
         loggedIn,
         login,
         logout,
-        updateUserInfo
+        updateUserInfo,
+        userQuit
     }
 })

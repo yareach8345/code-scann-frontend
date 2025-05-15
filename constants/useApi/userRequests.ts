@@ -44,3 +44,10 @@ export async function getUserData(id: string) {
     const { data } = await $axios.get<UserInfoDto>(`/users/${id}`)
     return data
 }
+
+export async function sendQuitRequest() {
+    const { $axios } = useNuxtApp()
+    console.log(`trying to quit`)
+    const response = await $axios.patch<UserInfoDto>("/me/quit")
+    console.log(`quit response=${JSON.stringify(response)}`)
+}
