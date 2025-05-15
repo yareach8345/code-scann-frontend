@@ -19,18 +19,18 @@ const {userInfo} = storeToRefs(loginStore)
 const displayName = computed(() => getDisplayName(userInfo.value))
 
 const newUserInfo = ref(userInfo.value ? {...userInfo.value} : null)
-const newnickname = ref(displayName.value)
+const newNickname = ref(displayName.value)
 
-watch(newnickname, () => {
-  console.log(newnickname.value)
+watch(newNickname, () => {
+  console.log(newNickname.value)
   if(newUserInfo.value) {
-    newUserInfo.value.nickname = newnickname.value
+    newUserInfo.value.nickname = newNickname.value
   }
 })
 
 watch(userInfo, () => {
   newUserInfo.value = userInfo.value ? {...userInfo.value} : null
-  newnickname.value = displayName.value
+  newNickname.value = displayName.value
 })
 
 const error = ref(false)
@@ -38,7 +38,7 @@ const error = ref(false)
 const router = useRouter()
 
 const onSubmit = async () => {
-  const nicknameField = { value: newnickname.value.length > 0 ? newnickname.value : null }
+  const nicknameField = { value: newNickname.value.length > 0 ? newNickname.value : null }
   const iconField = { value: newUserInfo.value?.icon ?? null }
   const userInfoUpdateDto: UserInfoUpdateDto = {
     icon: iconField,
@@ -66,12 +66,12 @@ const onSubmit = async () => {
     <v-card border="sm" elevation="0" max-width="600" class="flex-grow-1 pa-4">
       <v-card-title>내 정보</v-card-title>
       <v-divider class="mx-2"/>
-      <div v-if="newUserInfo !== null &&  newnickname != undefined">
+      <div v-if="newUserInfo !== null &&  newNickname != undefined">
         <account-view class="border-thin mx-2 my-4 py-2" :user-info="newUserInfo" viewonly/>
         <v-form @submit.prevent="onSubmit">
           <info-raw th="id"><v-text-field label="id" v-model="newUserInfo.id" disabled/></info-raw>
           <info-raw th="유저 아이콘"><user-icon-selector v-model:value="newUserInfo.icon"/></info-raw>
-          <info-raw th="닉네임"><v-text-field label="새로운 닉네임" v-model="newNickName" placeholder="입력하지 않을 시 id를 닉네임처럼 사용합니다."/></info-raw>
+          <info-raw th="닉네임"><v-text-field label="새로운 닉네임" v-model="newNickname" placeholder="입력하지 않을 시 id를 닉네임처럼 사용합니다."/></info-raw>
           <custom-btn submit>수정하기</custom-btn>
         </v-form>
       </div>
