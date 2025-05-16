@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type {UserInfoDto} from "~/dto/user/UserInfoDto";
 import {getUserData} from "~/constants/useApi/userRequests";
+import {searchNPostsWithUserId} from "~/constants/useApi/postRequests";
 
 const route = useRoute()
 
@@ -17,6 +18,7 @@ if(userInfo == null)
 const displayName = getDisplayName(userInfo)
 
 const showAdminInfo = computed(() => userInfo?.banned == false && userInfo?.role === 'ADMIN')
+const posts = await searchNPostsWithUserId(id)
 </script>
 
 <template>
@@ -25,15 +27,11 @@ const showAdminInfo = computed(() => userInfo?.banned == false && userInfo?.role
       <v-card-title>{{displayName}} 유저 정보</v-card-title>
       <v-divider/>
       <user-info-view :user-info="userInfo"/>
-      <v-divider/>
       {{displayName}} 게시글
       <!-- 임시용 더미데이터 -->
-      <v-card border="sm" elevation="0" class="ma-2">
-        <v-card-title>임시 더미데이터 게시글1</v-card-title>
-      </v-card>
-      <v-card border="sm" elevation="0" class="ma-2">
-        <v-card-title>임시 더미데이터 게시글2</v-card-title>
-      </v-card>
+      <v-sheet>
+        <minimal-post :post="post" v-for="post in posts"/>
+      </v-sheet>
     </v-card>
   </v-sheet>
 </template>

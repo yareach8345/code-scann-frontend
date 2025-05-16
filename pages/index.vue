@@ -1,12 +1,16 @@
 <script setup lang="ts">
+import {getNPosts} from "~/constants/useApi/postRequests";
+
 useHead({
   title: "게시판"
 })
 console.log("hello")
+
+const posts = await getNPosts()
 </script>
 
 <template>
-  <h1>HELLO WORLD</h1>
+  <PostList :posts="posts"/>
 </template>
 
 <style scoped>
