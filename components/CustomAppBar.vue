@@ -20,6 +20,11 @@ const toggleNavDrawer = () => {
   if(showNav && mobile)
     showNav.value = !showNav.value
 }
+
+const clickIcon = () => {
+  const router = useRouter()
+  router.push("/")
+}
 </script>
 
 <template>
@@ -30,7 +35,7 @@ const toggleNavDrawer = () => {
       </v-expand-x-transition>
     </client-only>
     <v-app-bar-title class="ml-3">
-      <div class="d-flex align-center">
+      <div class="d-flex align-center" @click="clickIcon">
         <v-img max-height="40" max-width="40" cover :src="iconPath"/>
         Code Snacc
       </div>
