@@ -10,17 +10,25 @@ if (typeof(id) !== "string") {
   throw new Error("id is not string")
 }
 
-console.log(`trying to get user data for id=${id}`)
-const userInfo = await getUserData(id)
-console.log(`userInfo=${JSON.stringify(userInfo)}`)
+const router = useRouter()
 
-const displayName = getDisplayName(userInfo)
+const { data } = await useAsyncData<UserInfoDto>(`userInfo-${id}`, () => getUserData(id), {
+  immediate: true
+})
+if(!data.value) {
+  if(import.meta.client) {
+    alert("존재하지 않는 유저입니다. 홈으로 돌아갑니다.")
+    router.push("/")
+  }
+}
+const userInfo = data
+const displayName = computed(() => getDisplayName(userInfo.value))
 
 const posts = await searchNPostsWithUserId(id)
 </script>
 
 <template>
-  <v-sheet class="d-flex justify-center pa-5">
+  <v-sheet v-if="userInfo" class="d-flex justify-center pa-5">
     <v-card border="sm" elevation="0" max-width="600" class="flex-grow-1 pa-4">
       <v-card-title>{{displayName}} 유저 정보</v-card-title>
       <v-divider/>
