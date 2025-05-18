@@ -16,7 +16,6 @@ console.log(`userInfo=${JSON.stringify(userInfo)}`)
 
 const displayName = getDisplayName(userInfo)
 
-const showAdminInfo = computed(() => userInfo?.banned == false && userInfo?.role === 'ADMIN')
 const posts = await searchNPostsWithUserId(id)
 </script>
 

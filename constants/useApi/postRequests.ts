@@ -15,6 +15,6 @@ export async function searchNPostsWithUserId(
     pageSize: number = 10,
 ) {
     const { $axios } = useNuxtApp()
-    const { data } = await $axios.get<PostInfoResponseDto[]>(`/posts?page=${page}&pageSize=${pageSize}&searchBy=writer&searchValue=${id}`)
+    const { data } = await $axios.get<PostInfoResponseDto[]>(`/posts?page=${page}&pageSize=${pageSize}&writerId=${id}`)
     return data
 }
