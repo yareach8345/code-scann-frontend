@@ -11,10 +11,9 @@ if (typeof(id) !== "string") {
 }
 
 console.log(`trying to get user data for id=${id}`)
-const { data, error } = await useAsyncData<UserInfoDto>("get user data", async () => await getUserData(id))
-const userInfo: UserInfoDto | null = data.value
-if(userInfo == null)
-  throw new Error("user data is undefined")
+const userInfo = await getUserData(id)
+console.log(`userInfo=${JSON.stringify(userInfo)}`)
+
 const displayName = getDisplayName(userInfo)
 
 const showAdminInfo = computed(() => userInfo?.banned == false && userInfo?.role === 'ADMIN')
@@ -27,8 +26,8 @@ const posts = await searchNPostsWithUserId(id)
       <v-card-title>{{displayName}} 유저 정보</v-card-title>
       <v-divider/>
       <user-info-view :user-info="userInfo"/>
+      <v-divider class="my-2"/>
       {{displayName}} 게시글
-      <!-- 임시용 더미데이터 -->
       <v-sheet>
         <minimal-post :post="post" v-for="post in posts"/>
       </v-sheet>

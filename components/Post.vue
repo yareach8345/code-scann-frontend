@@ -30,9 +30,14 @@ const moveToUserInfo = () => {
       {{ post.content }}
     </v-card-item>
     <v-divider class="mx-3 opacity-20"/>
-    <v-card-item @click="moveToUserInfo">
-      <v-icon>{{ post.writer.icon }}</v-icon>
-      {{displayName}}
+    <v-card-item>
+      <div class="d-flex justify-sm-space-between">
+        <div @click="moveToUserInfo">
+          <v-icon>{{ post.writer.icon }}</v-icon>
+          {{displayName}}
+        </div>
+        <post-comment-and-recommend :post="post"/>
+      </div>
     </v-card-item>
   </v-card>
 </template>

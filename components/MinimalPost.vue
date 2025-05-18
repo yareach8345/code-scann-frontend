@@ -14,17 +14,7 @@ const { post } = defineProps<Props>()
       <div>
         {{post.title}}
       </div>
-      <div class="d-flex ga-sm-1">
-        <div>
-          <v-icon>mdi-comment-outline</v-icon>
-          <span>{{post.commentCnt}}</span>
-        </div>
-        <div>
-          <v-icon v-if="post.didIRecommend" color="red-darken-1">mdi-heart</v-icon>
-          <v-icon v-else>mdi-heart-outline</v-icon>
-          <span>{{post.recommendCnt}}</span>
-        </div>
-      </div>
+      <post-comment-and-recommend :post="post"/>
     </v-card-title>
   </v-card>
 </template>
