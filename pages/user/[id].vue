@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type {UserInfoDto} from "~/dto/user/UserInfoDto";
-import {getUserData} from "~/constants/useApi/userRequests";
-import {searchNPostsWithUserId} from "~/constants/useApi/postRequests";
+import {getUserData} from "~/api/userRequests";
+import {searchNPostsWithUserId} from "~/api/postRequests";
 
 const route = useRoute()
 

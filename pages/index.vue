@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {getNPosts} from "~/constants/useApi/postRequests";
+import {getNPosts} from "~/api/postRequests";
 
 useHead({
   title: "게시판"

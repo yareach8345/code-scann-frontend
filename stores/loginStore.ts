@@ -1,7 +1,7 @@
 import type {UserInfoDto} from "~/dto/user/UserInfoDto";
 import {defineStore} from "pinia";
-import {authCheck, sendLogoutRequest, sendLoginRequest} from "~/constants/useApi/authRequests";
-import {getMyInfo, sendQuitRequest} from "~/constants/useApi/userRequests";
+import {authCheck, sendLogoutRequest, sendLoginRequest} from "~/api/authRequests";
+import {getMyInfo, sendQuitRequest} from "~/api/userRequests";
 import type {LoginDto} from "~/dto/login/LoginDto";
 
 export const useLoginStore = defineStore('loginStore', () => {

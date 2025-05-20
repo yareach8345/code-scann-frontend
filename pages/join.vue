@@ -8,7 +8,7 @@ definePageMeta({
   middleware: ['logout-check']
 })
 
-import {checkIdExist, sendJoinRequest} from "~/constants/useApi/userRequests";
+import {checkIdExist, sendJoinRequest} from "~/api/userRequests";
 import * as validators from "~/utils/inputValidators";
 import UserIconSelector from "~/components/forms/inputs/UserIconSelector.vue";
 import ErrorAlert from "~/components/alerts/ErrorAlert.vue";
