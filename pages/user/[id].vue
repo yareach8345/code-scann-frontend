@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type {UserInfoDto} from "~/dto/user/UserInfoDto";
 import {getUserData} from "~/api/userRequests";
-import {searchNPostsWithUserId} from "~/api/postRequests";
+import type PostSearchResultDto from "~/dto/post/PostSearchResultDto";
 
 const route = useRoute()
+
+const config = useRuntimeConfig()
 
 const id = route.params.id
 if (typeof(id) !== "string") {
@@ -24,7 +26,17 @@ if(!data.value) {
 const userInfo = data
 const displayName = computed(() => getDisplayName(userInfo.value))
 
-const posts = await searchNPostsWithUserId(id)
+const page = ref(1)
+
+const { data: searchResult } = useFetch<PostSearchResultDto>("/posts", {
+  method: "GET",
+  key: `posts-writerId-${id}`,
+  baseURL: config.public.API_BASE_URL,
+  query: {
+    page
+  },
+  watch: [ page ]
+})
 </script>
 
 <template>
@@ -35,9 +47,17 @@ const posts = await searchNPostsWithUserId(id)
       <user-info-view :user-info="userInfo"/>
       <v-divider class="my-2"/>
       {{displayName}} 게시글
-      <v-sheet>
-        <minimal-post :post="post" v-for="post in posts"/>
-      </v-sheet>
+      <v-container>
+        <post-list
+            v-if="searchResult !== null"
+            :posts="searchResult"
+            v-model="page"
+            v-slot="{ post }"
+            paginationSize="x-small"
+        >
+          <minimalPost :post="post" />
+        </post-list>
+      </v-container>
     </v-card>
   </v-sheet>
 </template>

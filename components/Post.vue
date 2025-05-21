@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type PostInfoResponseDto from "~/dto/post/PostInfoResponseDto";
+import type PostInfoResponseDto from "~/dto/post/PostSearchResultDto";
 
 interface Props {
   post: PostInfoResponseDto
@@ -28,6 +28,11 @@ const moveToUserInfo = () => {
     </v-card-item>
     <v-card-item>
       {{ post.content }}
+    </v-card-item>
+    <v-card-item>
+      <v-chip variant="outlined" v-for="tag in post.tags.sort()" size="small" class="mr-1">
+        #{{tag}}
+      </v-chip>
     </v-card-item>
     <v-divider class="mx-3 opacity-20"/>
     <v-card-item>
