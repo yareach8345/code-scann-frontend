@@ -38,11 +38,12 @@ const searchWithTag = async (tag: string) => {
   <v-card class="border-sm my-5" elevation="0">
     <v-card-title>{{ post.title }}</v-card-title>
     <v-divider/>
-    <v-card-item @click="searchWithLanguage">
-      <div>
-        <v-icon>{{ languageInfo?.mdiIcon }}</v-icon>
-        {{ languageInfo?.displayName }}</div>
+    <v-card-item>
       <div v-html="codeHtml"/>
+      <div class="d-flex align-center" @click="searchWithLanguage">
+        <v-icon>{{ languageInfo?.mdiIcon }}</v-icon>
+        {{ languageInfo?.displayName }}
+      </div>
     </v-card-item>
     <v-card-item>
       {{ post.content }}

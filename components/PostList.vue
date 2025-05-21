@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type PostSearchResponseDto from "~/dto/post/PostSearchResultDto";
+import '@/styles/custom-shiki.css'
 
 interface Props {
   posts: PostSearchResponseDto,
