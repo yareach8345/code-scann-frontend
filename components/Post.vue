@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type PostInfoResponseDto from "~/dto/post/PostInfoResponseDto";
+import { getSingletonHighlighter, type BundledLanguage } from "shiki";
+import { languages, languagesInfo } from '~/constants/Languages'
 
 interface Props {
   post: PostInfoResponseDto
@@ -11,8 +13,24 @@ const { post } = defineProps<Props>()
 
 const displayName = getDisplayName( post.writer )
 
-const moveToUserInfo = () => {
-  router.push(`/user/${post.writer.id}`)
+const highlighter = await getSingletonHighlighter({
+  langs: [ ...languages ] as BundledLanguage[],
+  themes: ["github-dark-high-contrast"]
+})
+const codeHtml = highlighter.codeToHtml(post.code, { lang: post.language, theme: "github-dark-high-contrast" })
+
+const languageInfo = languagesInfo.get(post.language)
+
+const moveToUserInfo = async () => {
+  await router.push(`/user/${post.writer.id}`)
+}
+
+const searchWithLanguage = async () => {
+  await router.push(`/?lang=${post.language}`)
+}
+
+const searchWithTag = async (tag: string) => {
+  await router.push(`/?tags=${tag}`)
 }
 </script>
 
@@ -20,17 +38,25 @@ const moveToUserInfo = () => {
   <v-card class="border-sm my-5" elevation="0">
     <v-card-title>{{ post.title }}</v-card-title>
     <v-divider/>
-    <v-card-item>
-      <v-card>
-        <v-card-item>{{ post.language }}</v-card-item>
-        <v-card-text>{{ post.code }}</v-card-text>
-      </v-card>
+    <v-card-item @click="searchWithLanguage">
+      <div>
+        <v-icon>{{ languageInfo?.mdiIcon }}</v-icon>
+        {{ languageInfo?.displayName }}</div>
+      <div v-html="codeHtml"/>
     </v-card-item>
     <v-card-item>
       {{ post.content }}
     </v-card-item>
     <v-card-item>
-      <v-chip variant="outlined" v-for="tag in post.tags.sort()" size="small" class="mr-1">
+      <v-chip
+          v-for="tag in [...post.tags].sort()"
+          :key="tag"
+          variant="outlined"
+          size="small"
+          class="mr-1"
+          clickable
+          @click="() => searchWithTag(tag)"
+      >
         #{{tag}}
       </v-chip>
     </v-card-item>

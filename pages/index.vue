@@ -10,13 +10,23 @@ const config = useRuntimeConfig()
 
 const route = useRoute()
 
-const searchOptions = reactive<PostSearchDto>({
-  page: 1,
-  pageSize: 10,
-  ...route.query
+// const searchOptions = ref<PostSearchDto>()
+
+const page = ref(route.query.page ? parseInt(route.query.page as string) : 1)
+
+watch(() => route.query, () => {
+  if(route.query.page === undefined) {
+    page.value=1
+  }
 })
 
-const { data: searchResult, pending, refresh } = await useFetch<PostSearchResultDto>("/posts?", {
+const searchOptions = computed<PostSearchDto>(() => ({
+  page: page.value,
+  pageSize: 10,
+  ...route.query
+}))
+
+const { data: searchResult, pending } = await useFetch<PostSearchResultDto>("/posts?", {
   method: "get",
   baseURL: config.public.API_BASE_URL,
   credentials: "include",
@@ -24,7 +34,7 @@ const { data: searchResult, pending, refresh } = await useFetch<PostSearchResult
     ...useRequestHeaders(['cookie'])
   },
   params: searchOptions,
-  watch: [ () => searchOptions.page ]
+  watch: [ searchOptions ]
 })
 </script>
 
@@ -35,7 +45,7 @@ const { data: searchResult, pending, refresh } = await useFetch<PostSearchResult
   <PostList
       v-else-if="searchResult !== null"
       :posts="searchResult"
-      v-model="searchOptions.page"
+      v-model="page"
       v-slot="{ post }"
   >
     <post :post="post" />

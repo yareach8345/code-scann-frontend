@@ -1,0 +1,1 @@
+export type Language = 'bash' | 'c' | 'cpp' | 'csharp' | 'css' | 'fortran-free-form' | 'go' | 'haskell' | 'html' | 'java' | 'javascript' | 'json' | 'kotlin' | 'lua' | 'php' | 'python'| 'r' | 'ruby' | 'rust' | 'sass' | 'sql' |  'swift' | 'typescript' | 'xml';
