@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type PostInfoResponseDto from "~/dto/post/PostSearchResultDto";
+import type PostInfoResponseDto from "~/dto/post/PostInfoResponseDto";
 
 interface Props {
   post: PostInfoResponseDto
