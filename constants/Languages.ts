@@ -31,4 +31,4 @@ languagesInfo.set("swift", { mdiIcon: "mdi-language-swift", displayName: "swift"
 languagesInfo.set("typescript", { mdiIcon: "mdi-language-typescript", displayName: "Typescript" })
 languagesInfo.set("xml", { mdiIcon: "mdi-xml", displayName: "xml" })
 
-export const languages = languagesInfo.keys().filter(key => key !== "<LANG>")
+export const languages = languagesInfo.keys()

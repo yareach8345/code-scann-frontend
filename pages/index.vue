@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type PostSearchDto from "~/dto/post/PostSearchDto";
 import type PostSearchResultDto from "~/dto/post/PostSearchResultDto";
+import SearchPostForm from "@/components/forms/SearchPostForm.vue";
 
 useHead({
   title: "게시판"
@@ -22,8 +23,10 @@ watch(() => route.query, () => {
 
 const searchOptions = computed<PostSearchDto>(() => ({
   page: page.value,
-  pageSize: 10,
-  ...route.query
+  pageSize: route.query.pageSize ? parseInt(route.query.pageSize as string) : undefined,
+  tags: route.query.tags ? (route.query.tags as string).split(",") : undefined,
+  lang: route.query.lang ? (route.query.lang as string) : undefined,
+  title: route.query.title ? (route.query.title as string) : undefined,
 }))
 
 const { data: searchResult, pending } = await useFetch<PostSearchResultDto>("/posts?", {
@@ -42,14 +45,16 @@ const { data: searchResult, pending } = await useFetch<PostSearchResultDto>("/po
   <div v-if="pending">
     loading...
   </div>
-  <PostList
-      v-else-if="searchResult !== null"
-      :posts="searchResult"
-      v-model="page"
-      v-slot="{ post }"
-  >
-    <post :post="post" />
-  </PostList>
+  <div v-else-if="searchResult !== null">
+    <search-post-form :initOptions="searchOptions"/>
+    <PostList
+        :posts="searchResult"
+        v-model="page"
+        v-slot="{ post }"
+    >
+      <post :post="post" />
+    </PostList>
+  </div>
   <div v-else>
     no...
   </div>

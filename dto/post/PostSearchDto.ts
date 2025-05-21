@@ -1,8 +1,8 @@
 export default interface PostSearchDto {
-    title?: String,
-    writerId?: String,
-    tags?: String[],
-    lang?: String,
+    title?: string,
+    writerId?: string,
+    tags?: string[],
+    lang?: string,
     page?: number,
     pageSize?: number
 }
