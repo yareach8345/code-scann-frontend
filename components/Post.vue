@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type PostInfoResponseDto from "~/dto/post/PostInfoResponseDto";
-import { getSingletonHighlighter, type BundledLanguage } from "shiki";
-import { languages, languagesInfo } from '~/constants/Languages'
+import { languagesInfo } from '~/constants/Languages'
 
 interface Props {
   post: PostInfoResponseDto
@@ -13,11 +12,8 @@ const { post } = defineProps<Props>()
 
 const displayName = getDisplayName( post.writer )
 
-const highlighter = await getSingletonHighlighter({
-  langs: [ ...languages ] as BundledLanguage[],
-  themes: ["github-dark-high-contrast"]
-})
-const codeHtml = highlighter.codeToHtml(post.code, { lang: post.language, theme: "github-dark-high-contrast" })
+const { $highlighter } = useNuxtApp()
+const codeHtml = $highlighter.codeToHtml(post.code, { lang: post.language, theme: "snazzy-light" })
 
 const languageInfo = languagesInfo.get(post.language)
 
