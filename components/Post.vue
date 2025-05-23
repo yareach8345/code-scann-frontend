@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import 'github-markdown-css/github-markdown-light.css'
+
 import type PostInfoResponseDto from "~/dto/post/PostInfoResponseDto";
 import { languagesInfo } from '~/constants/Languages'
 
@@ -16,6 +18,8 @@ const { $highlighter } = useNuxtApp()
 const codeHtml = $highlighter.codeToHtml(post.code, { lang: post.language, theme: "snazzy-light" })
 
 const languageInfo = languagesInfo.get(post.language)
+
+const markdownContent = renderMarkdown(post.content)
 
 const moveToUserInfo = async () => {
   await router.push(`/user/${post.writer.id}`)
@@ -42,7 +46,7 @@ const searchWithTag = async (tag: string) => {
       </div>
     </v-card-item>
     <v-card-item>
-      {{ post.content }}
+      <div class="markdown-body" v-html="markdownContent"/>
     </v-card-item>
     <v-card-item>
       <v-chip

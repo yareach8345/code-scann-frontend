@@ -17,6 +17,8 @@
     "@milkdown/vue": "^7.11.0",
     "@pinia/nuxt": "^0.11.0",
     "axios": "^1.9.0",
+    "github-markdown-css": "^5.8.1",
+    "markdown-it": "^14.1.0",
     "nuxt": "^3.17.0",
     "pinia": "^3.0.2",
     "shiki": "^3.4.2",
@@ -24,6 +26,7 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
     "vite-plugin-vuetify": "^2.1.1",
     "vuetify": "^3.8.2"
   }
