@@ -1,5 +1,5 @@
 import type {UserInfoDto} from "~/dto/user/UserInfoDto";
-import type {Language} from '@/constants/Languages'
+import type {Language} from '~/constants/LanguagesList'
 
 export default interface PostInfoResponseDto {
     id: number,

@@ -2,7 +2,7 @@
 import 'github-markdown-css/github-markdown-light.css'
 
 import type PostInfoResponseDto from "~/dto/post/PostInfoResponseDto";
-import { languagesInfo } from '~/constants/Languages'
+import {languagesMap} from "~/constants/LanguagesList";
 
 interface Props {
   post: PostInfoResponseDto
@@ -17,7 +17,7 @@ const displayName = getDisplayName( post.writer )
 const { $highlighter } = useNuxtApp()
 const codeHtml = $highlighter.codeToHtml(post.code, { lang: post.language, theme: "snazzy-light" })
 
-const languageInfo = languagesInfo.get(post.language)
+const languageInfo = languagesMap.get(post.language)
 
 const markdownContent = renderMarkdown(post.content)
 
