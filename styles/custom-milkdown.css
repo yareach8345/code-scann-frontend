@@ -1,0 +1,8 @@
+.milkdown {
+    min-height: 250px;
+    padding: 0.3rem;
+}
+
+.milkdown :focus-visible {
+    outline: none;
+}

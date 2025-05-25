@@ -46,7 +46,7 @@ const { data: searchResult, pending } = await useFetch<PostSearchResultDto>("/po
     loading...
   </div>
   <div v-else-if="searchResult !== null">
-    <search-post-form :initOptions="searchOptions" :tags="['test-tag1', 'test-tag2', 'test-tag3']"/>
+    <search-post-form :initOptions="searchOptions" />
     <PostList
         :posts="searchResult"
         v-model="page"

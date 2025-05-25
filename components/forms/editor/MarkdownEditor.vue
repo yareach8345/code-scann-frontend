@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import '@/styles/custom-milkdown.css'
+
 import MilkdownEditor from "~/components/forms/editor/MilkdownEditor.vue";
 import { MilkdownProvider } from "@milkdown/vue";
 

@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type PostSearchDto from "~/dto/post/PostSearchDto"
-import icons from "~/constants/UserIconList";
-import {languages} from "~/constants/Languages";
+import TagSelector from "~/components/forms/inputs/TagSelector.vue"
+
 interface Props {
   initOptions: PostSearchDto,
-  tags: string[]
 }
 
-const { initOptions, tags } = defineProps<Props>()
+const { initOptions } = defineProps<Props>()
 
 const router = useRouter()
 
@@ -22,10 +21,6 @@ const isTitleEmpty = computed(() => title.value.length === 0)
 const pageSize = ref<number>(initOptions.pageSize ?? 10)
 const isPageSizeDefault = computed(() => pageSize.value === 10)
 
-const language = ref<string | undefined>(initOptions.lang)
-const langaugeIsNotSelected = computed(() => language === undefined)
-
-const tagList = computed(() => tags.toSorted())
 const selectedTags = ref<string[]>(initOptions.tags ?? [])
 
 const doSearch = async () => {
@@ -71,12 +66,15 @@ const resetPageSize = async () => {
               v-model="pageSize"
               :min="1"
           />
-          <v-select
-              label="태그"
-              :items="tagList"
-              v-model="selectedTags"
-              multiple
+          <tag-selector
+            v-model="selectedTags"
           />
+<!--          <v-select-->
+<!--              label="태그"-->
+<!--              :items="tagList"-->
+<!--              v-model="selectedTags"-->
+<!--              multiple-->
+<!--          />-->
           <custom-btn submit>검색하기</custom-btn>
         </v-form>
         <div class="text-center" v-else>

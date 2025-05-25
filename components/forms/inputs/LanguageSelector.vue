@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import { languages } from '~/constants/Languages'
+import {type LanguageInfo, languages} from '~/constants/LanguagesList'
 
-const value = defineModel<string | undefined>()
-
-languages.forEach(lang => {
-  console.log(lang.mdiIcon)
-})
+const value = defineModel<LanguageInfo | undefined>()
 </script>
 
 <template>
