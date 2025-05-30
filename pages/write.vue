@@ -1,17 +1,30 @@
 <script setup lang="ts">
 import type PostUploadDto from "~/dto/post/PostUploadDto";
 import LanguageSelector from "~/components/forms/inputs/LanguageSelector.vue";
-import {type LanguageInfo, languagesMap} from "~/constants/LanguagesList";
+import {type LanguageInfo, languages, languagesMap} from "~/constants/LanguagesList";
 import MarkdownEditor from "~/components/forms/editor/MarkdownEditor.vue";
 import TagSelector from "~/components/forms/inputs/TagSelector.vue";
-
-// todo 업로드 전 체크사항 확인하게 하기
+import {useLoginStore} from "~/stores/loginStore";
+import type PostUploadResponseDto from "~/dto/post/PostUploadResponseDto";
+import type {Language} from "@/constants/LanguagesList";
 
 definePageMeta({
   middleware: ['login-check']
 })
 
-const content = reactive<PostUploadDto>({
+const config = useRuntimeConfig()
+
+const { userInfo } = storeToRefs(useLoginStore())
+
+interface WrittenPost {
+  title: string,
+  code: string,
+  language: Language,
+  content: string,
+  tags: string[]
+}
+
+const content = reactive<WrittenPost>({
   title: "",
   code: "",
   language: "text",
@@ -30,10 +43,32 @@ const editorLanguage = computed(() =>
         : languagesMap.get(content.language ?? "plaintext")?.monacoEditorLanguage ?? "plaintext"
 )
 
+const submitable = computed(() =>
+    content.title.length > 0 &&
+    content.code.length > 0 &&
+    languages.filter(l => l.value === content.language).length !== 0 &&
+    content.content.length > 0
+)
+
 const uploadPost = async () => {
-  //todo: 업로드 구현하기
-  console.log(content)
-  console.log("업로드!")
+  if(submitable.value) {
+    const uploadDto: PostUploadDto = {
+      writerId: userInfo.value!.id,
+      ...content,
+    }
+    const response = await $fetch<PostUploadResponseDto>("/posts", {
+      method: "post",
+      baseURL: config.public.API_BASE_URL,
+      credentials: "include",
+      headers: {
+        ...useRequestHeaders(['cookie'])
+      },
+      body: uploadDto
+    })
+    const router = useRouter()
+    console.log("업로드 링크. 새 게시글 링크 :", response.postId)
+    await router.push(`/posts/${response.postId}`)
+  }
 }
 </script>
 
@@ -54,11 +89,11 @@ const uploadPost = async () => {
             v-model="content.code"
             :lang="editorLanguage"
             :style="{
-            height: '250px',
-          }"
+              height: '250px',
+            }"
             :options="{
-            theme: 'github-light'
-          }"
+              theme: 'github-light'
+            }"
         />
       </div>
       <div class="border-sm mb-5 text-left">
@@ -69,7 +104,12 @@ const uploadPost = async () => {
       <tag-selector
           v-model="content.tags"
       />
-      <custom-btn submit>업로드!</custom-btn>
+      <custom-btn
+          submit
+          :class="{
+            'opacity-50' : !submitable,
+          }"
+      >업로드!</custom-btn>
     </v-form>
   </v-card>
 </template>
