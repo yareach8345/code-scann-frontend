@@ -2,6 +2,7 @@
 import type PostSearchDto from "~/dto/post/PostSearchDto";
 import type PostSearchResultDto from "~/dto/post/PostSearchResultDto";
 import SearchPostForm from "@/components/forms/SearchPostForm.vue";
+import {POST_REFRESH_SYMBOL} from "~/constants/Symbols";
 
 useHead({
   title: "게시판"
@@ -29,7 +30,7 @@ const searchOptions = computed<PostSearchDto>(() => ({
   title: route.query.title ? (route.query.title as string) : undefined,
 }))
 
-const { data: searchResult, pending } = await useFetch<PostSearchResultDto>("/posts?", {
+const { data: searchResult, refresh: postRefresh, pending } = await useFetch<PostSearchResultDto>("/posts?", {
   method: "get",
   baseURL: config.public.API_BASE_URL,
   credentials: "include",
@@ -39,6 +40,8 @@ const { data: searchResult, pending } = await useFetch<PostSearchResultDto>("/po
   params: searchOptions,
   watch: [ searchOptions ]
 })
+
+provide(POST_REFRESH_SYMBOL, postRefresh)
 </script>
 
 <template>

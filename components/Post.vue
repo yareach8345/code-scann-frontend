@@ -3,12 +3,15 @@ import 'github-markdown-css/github-markdown-light.css'
 
 import type PostInfoResponseDto from "~/dto/post/PostInfoResponseDto";
 import {languagesMap} from "~/constants/LanguagesList";
+import {POST_REFRESH_SYMBOL} from "~/constants/Symbols";
 
 interface Props {
   post: PostInfoResponseDto
 }
 
 const router = useRouter()
+
+const config = useRuntimeConfig()
 
 const { post } = defineProps<Props>()
 
@@ -32,11 +35,51 @@ const searchWithLanguage = async () => {
 const searchWithTag = async (tag: string) => {
   await router.push(`/?tags=${tag}`)
 }
+
+// todo: 수정페이지로 이동 구현
+const refreshPost = inject(POST_REFRESH_SYMBOL)
+
+const deletePost = async () => {
+  await $fetch(`/posts/${post.id}`, {
+    method: "delete",
+    baseURL: config.public.API_BASE_URL,
+    credentials: "include",
+    headers: {
+      ...useRequestHeaders(['cookie'])
+    },
+  })
+
+  if(refreshPost) {
+    alert("게시글 삭제 완료")
+    await refreshPost()
+  } else {
+    console.error("refresh fail")
+  }
+}
 </script>
 
 <template>
   <v-card class="border-sm my-5" elevation="0">
-    <v-card-title>{{ post.title }}</v-card-title>
+    <v-card-title class="d-flex justify-space-between">
+      <div>
+        <!-- 제목 -->
+        {{ post.title }}
+      </div>
+      <div>
+        <!-- 삭제 수정등의 메뉴 -->
+        <v-hover v-slot="{ isHovering, props }">
+          <v-icon :class=" isHovering ? 'text-green' : '' " class="mr-2" v-bind="props">
+            <!-- todo: 수정페이지로 이동 구현 -->
+            mdi-pencil
+          </v-icon>
+        </v-hover>
+        <v-hover v-slot="{ isHovering, props }">
+          <v-icon :class=" isHovering ? 'text-red' : '' " v-bind="props" @click="deletePost">
+            {{isHovering ? "mdi-delete-empty" : "mdi-delete"}}
+          </v-icon>
+        </v-hover>
+      </div>
+    </v-card-title>
     <v-divider/>
     <v-card-item>
       <div v-html="codeHtml"/>
