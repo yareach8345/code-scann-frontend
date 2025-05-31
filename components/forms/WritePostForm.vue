@@ -41,6 +41,11 @@ const onSubmit = () => {
     emits('post', postInputs)
   }
 }
+
+const titleField = useTemplateRef<HTMLElement>('title-field')
+onMounted(() => {
+  titleField.value?.focus()
+})
 </script>
 
 <template>
