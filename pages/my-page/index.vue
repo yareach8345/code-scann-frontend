@@ -3,6 +3,7 @@ import type {UserInfoDto} from "~/dto/user/UserInfoDto";
 import {useLoginStore} from "~/stores/loginStore";
 import {getMyInfo} from "~/api/userRequests";
 import {definePageMeta} from "#imports";
+import ShowUserInfo from "~/components/ShowUserInfo.vue";
 
 useHead({
   title: "내 페이지"
@@ -18,15 +19,11 @@ console.log(data.value)
 </script>
 
 <template>
-  <v-sheet class="ma-5 d-flex justify-center">
+  <v-sheet v-if="userInfo" class="d-flex justify-center pa-5">
     <v-card border="sm" elevation="0" max-width="600" class="flex-grow-1 pa-4">
       <v-card-title>내 정보</v-card-title>
-      <v-divider class="mx-2"/>
-      <user-info-view
-        v-if="userInfo"
-        :user-info="userInfo"
-      />
-      <custom-btn to="/my-page/edit" class="mx-2">수정</custom-btn>
+      <v-divider/>
+      <show-user-info :userInfo="userInfo"/>
     </v-card>
   </v-sheet>
 </template>
