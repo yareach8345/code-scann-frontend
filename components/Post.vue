@@ -36,8 +36,11 @@ const searchWithTag = async (tag: string) => {
   await router.push(`/?tags=${tag}`)
 }
 
-// todo: 수정페이지로 이동 구현
 const refreshPost = inject(POST_REFRESH_SYMBOL)
+
+const moveToUpdatePostPage = async () => {
+  await router.push(`/posts/${post.id}/update`)
+}
 
 const deletePost = async () => {
   await $fetch(`/posts/${post.id}`, {
@@ -68,13 +71,21 @@ const deletePost = async () => {
       <div>
         <!-- 삭제 수정등의 메뉴 -->
         <v-hover v-slot="{ isHovering, props }">
-          <v-icon :class=" isHovering ? 'text-green' : '' " class="mr-2" v-bind="props">
-            <!-- todo: 수정페이지로 이동 구현 -->
+          <v-icon
+              :class=" isHovering ? 'text-green' : '' "
+              class="mr-2"
+              v-bind="props"
+              @click="moveToUpdatePostPage"
+          >
             mdi-pencil
           </v-icon>
         </v-hover>
         <v-hover v-slot="{ isHovering, props }">
-          <v-icon :class=" isHovering ? 'text-red' : '' " v-bind="props" @click="deletePost">
+          <v-icon
+              :class=" isHovering ? 'text-red' : '' "
+              v-bind="props"
+              @click="deletePost"
+          >
             {{isHovering ? "mdi-delete-empty" : "mdi-delete"}}
           </v-icon>
         </v-hover>
