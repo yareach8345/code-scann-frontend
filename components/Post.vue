@@ -4,6 +4,7 @@ import 'github-markdown-css/github-markdown-light.css'
 import type PostInfoResponseDto from "~/dto/post/PostInfoResponseDto";
 import {languagesMap} from "~/constants/LanguagesList";
 import {POST_REFRESH_SYMBOL} from "~/constants/Symbols";
+import {useLoginStore} from "~/stores/loginStore";
 
 interface Props {
   post: PostInfoResponseDto
@@ -14,6 +15,8 @@ const router = useRouter()
 const config = useRuntimeConfig()
 
 const { post } = defineProps<Props>()
+
+const { userInfo } = storeToRefs(useLoginStore())
 
 const displayName = getDisplayName( post.writer )
 
@@ -38,6 +41,7 @@ const searchWithTag = async (tag: string) => {
 
 const refreshPost = inject(POST_REFRESH_SYMBOL)
 
+const showControlBtns = computed(() => userInfo.value?.id === post.writer.id )
 const moveToUpdatePostPage = async () => {
   await router.push(`/posts/${post.id}/update`)
 }
@@ -59,16 +63,20 @@ const deletePost = async () => {
     console.error("refresh fail")
   }
 }
+
+const moveToPost = async () => {
+  router.push(`/posts/${post.id}`)
+}
 </script>
 
 <template>
   <v-card class="border-sm my-5" elevation="0">
     <v-card-title class="d-flex justify-space-between">
-      <div>
+      <div @click="moveToPost">
         <!-- 제목 -->
         {{ post.title }}
       </div>
-      <div>
+      <div v-if="showControlBtns">
         <!-- 삭제 수정등의 메뉴 -->
         <v-hover v-slot="{ isHovering, props }">
           <v-icon
