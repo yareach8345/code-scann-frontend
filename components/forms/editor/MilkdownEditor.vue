@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {rootCtx} from "@milkdown/core";
+import {rootCtx, editorViewCtx, defaultValueCtx} from "@milkdown/core";
 import {Milkdown, useEditor} from "@milkdown/vue";
 import {commonmark} from "@milkdown/preset-commonmark";
 import {nord} from "@milkdown/theme-nord";
@@ -12,9 +12,10 @@ const content = defineModel<string>({
   default: ""
 })
 
-useEditor((root) => Editor.make()
+const editor = useEditor((root) => Editor.make()
     .config((ctx) => {
       ctx.set(rootCtx, root)
+      ctx.set(defaultValueCtx, content.value)
       ctx.get(listenerCtx).markdownUpdated((_ctx, markdown) => {
         content.value = markdown
       })
@@ -23,10 +24,20 @@ useEditor((root) => Editor.make()
     .use(commonmark)
     .use(listener)
 )
+
+const onClick = () => {
+  editor.get()?.action((ctx) => {
+    const view = ctx.get(editorViewCtx)
+    view?.focus()
+  })
+
+}
 </script>
 
 <template>
-  <Milkdown v-model="content"/>
+  <Milkdown
+      @click="onClick"
+  />
 </template>
 
 <style scoped>
