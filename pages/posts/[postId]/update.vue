@@ -43,11 +43,15 @@ const updatePost = async (postInputs: PostInputs) => {
 </script>
 
 <template>
-  <write-post-form
-      :post-inputs="postInputs"
-      :submit-text="'수정'"
-      @post="updatePost"
-  />
+  <v-card class="text-center border-sm ma-7 pa-2" elevation="0">
+    <v-card-title>게시글 수정</v-card-title>
+    <v-divider class="my-2"/>
+    <write-post-form
+        :post-inputs="postInputs"
+        :submit-text="'수정'"
+        @post="updatePost"
+    />
+  </v-card>
 </template>
 
 <style scoped>

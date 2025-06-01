@@ -36,8 +36,8 @@ const uploadPost = async (postInputs: PostInputs) => {
     body: uploadDto
   })
   const router = useRouter()
-  console.log("업로드 링크. 새 게시글 링크 :", response.postId)
-  await router.push(`/posts/${response.postId}`)
+  alert("게시글 등록 완료")
+  await router.push('/')
 }
 </script>
 
