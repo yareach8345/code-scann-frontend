@@ -45,7 +45,7 @@ const uploadPost = async (postInputs: PostInputs) => {
   <v-card class="text-center border-sm ma-7 pa-2" elevation="0">
     <v-card-title>게시글 작성</v-card-title>
     <v-divider class="my-2"/>
-    <WritePostForm :post-inputs="defaultInputs" @post="uploadPost"/>
+    <WritePostForm :post-inputs="defaultInputs" :submit-text="'업로드'" @post="uploadPost"/>
   </v-card>
 </template>
 

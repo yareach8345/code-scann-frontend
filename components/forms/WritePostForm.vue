@@ -6,7 +6,8 @@ import {type LanguageInfo, languages, languagesMap} from "~/constants/LanguagesL
 import type PostInputs from "~/model/PostInputs";
 
 interface Props {
-  postInputs: PostInputs
+  postInputs: PostInputs,
+  submitText: string
 }
 
 const props = defineProps<Props>()
@@ -18,7 +19,7 @@ interface Emits {
 
 const emits = defineEmits<Emits>();
 
-const selectedLanguage = ref<LanguageInfo | undefined>(undefined)
+const selectedLanguage = ref<LanguageInfo | undefined>(languagesMap.get(postInputs.language) ?? undefined)
 watch(selectedLanguage, () => {
   postInputs.language = selectedLanguage.value?.value ?? 'text'
 })
@@ -82,7 +83,7 @@ onMounted(() => {
         :class="{
             'opacity-50' : !submitable,
           }"
-    >업로드!</custom-btn>
+    >{{props.submitText}}</custom-btn>
   </v-form>
 </template>
 
