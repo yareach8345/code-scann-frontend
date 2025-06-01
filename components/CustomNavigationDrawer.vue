@@ -9,6 +9,10 @@ interface Props {
 const { mobile } = defineProps<Props>()
 
 const showNav = inject<Ref<boolean>>("show-nav")
+
+const { userInfo } = storeToRefs(useLoginStore())
+
+const useable = (needLogin: boolean) => needLogin ? !!userInfo.value : true
 </script>
 
 <template>
@@ -23,7 +27,12 @@ const showNav = inject<Ref<boolean>>("show-nav")
       <v-list>
         <account-view-item/>
         <v-divider class="mx-2"/>
-        <v-list-item v-for="navigationItem in navigationItems" :prepend-icon="navigationItem.icon" :to="navigationItem.to">
+        <v-list-item
+            v-for="navigationItem in navigationItems"
+            :prepend-icon="navigationItem.icon"
+            :to="navigationItem.to"
+            :disabled="!useable(navigationItem.needLogin)"
+        >
           <v-list-item-title>{{navigationItem.title}}</v-list-item-title>
         </v-list-item>
       </v-list>
