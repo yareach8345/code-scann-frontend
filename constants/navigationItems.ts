@@ -9,7 +9,7 @@ const navigationMenus: NavigationMenu[] = [
     {
         icon: "mdi-pencil",
         title: "게시글 작성",
-        to: "/write"
+        to: "/posts/write"
     },
     {
         icon: "mdi-information",
