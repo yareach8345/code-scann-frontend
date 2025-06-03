@@ -5,6 +5,7 @@ import type PostInfoResponseDto from "~/dto/post/PostInfoResponseDto";
 import {languagesMap} from "~/constants/LanguagesList";
 import {POST_REFRESH_SYMBOL} from "~/constants/Symbols";
 import {useLoginStore} from "~/stores/loginStore";
+import DeleteAndEditButton from "~/components/DeleteAndEditButton.vue";
 
 interface Props {
   post: PostInfoResponseDto
@@ -65,7 +66,7 @@ const deletePost = async () => {
 }
 
 const moveToPost = async () => {
-  router.push(`/posts/${post.id}`)
+  await router.push(`/posts/${post.id}`)
 }
 </script>
 
@@ -76,28 +77,11 @@ const moveToPost = async () => {
         <!-- 제목 -->
         {{ post.title }}
       </div>
-      <div v-if="showControlBtns">
-        <!-- 삭제 수정등의 메뉴 -->
-        <v-hover v-slot="{ isHovering, props }">
-          <v-icon
-              :class=" isHovering ? 'text-green' : '' "
-              class="mr-2"
-              v-bind="props"
-              @click="moveToUpdatePostPage"
-          >
-            mdi-pencil
-          </v-icon>
-        </v-hover>
-        <v-hover v-slot="{ isHovering, props }">
-          <v-icon
-              :class=" isHovering ? 'text-red' : '' "
-              v-bind="props"
-              @click="deletePost"
-          >
-            {{isHovering ? "mdi-delete-empty" : "mdi-delete"}}
-          </v-icon>
-        </v-hover>
-      </div>
+      <DeleteAndEditButton
+          v-if="showControlBtns"
+          @update-button-clicked="moveToUpdatePostPage"
+          @delete-button-clicked="deletePost"
+      />
     </v-card-title>
     <v-divider/>
     <v-card-item>
