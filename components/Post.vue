@@ -8,14 +8,17 @@ import {useLoginStore} from "~/stores/loginStore";
 import DeleteAndEditButton from "~/components/DeleteAndEditButton.vue";
 
 interface Props {
-  post: PostInfoResponseDto
+  post: PostInfoResponseDto,
+  showComments: boolean | undefined,
 }
 
 const router = useRouter()
 
 const config = useRuntimeConfig()
 
-const { post } = defineProps<Props>()
+const props = defineProps<Props>()
+const post = props.post
+const showComments = props.showComments ?? false
 
 const { userInfo } = storeToRefs(useLoginStore())
 
@@ -117,8 +120,14 @@ const moveToPost = async () => {
         <post-comment-and-recommend :post="post"/>
       </div>
     </v-card-item>
-    <v-divider/>
-    <comments-view :postId="post.id" />
+    <template
+        v-if="showComments"
+    >
+      <v-divider/>
+      <comments-view
+          :postId="post.id"
+      />
+    </template>
   </v-card>
 </template>
 

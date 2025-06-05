@@ -13,7 +13,7 @@ const postInfo = await $fetch<PostInfoResponseDto>(`/posts/${id}`, {
 </script>
 
 <template>
-  <post :post="postInfo" class="ma-2" />
+  <post :post="postInfo" showComments class="ma-2"/>
 </template>
 
 <style scoped>
