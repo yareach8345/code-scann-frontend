@@ -117,6 +117,8 @@ const moveToPost = async () => {
         <post-comment-and-recommend :post="post"/>
       </div>
     </v-card-item>
+    <v-divider/>
+    <comments-view :postId="post.id" />
   </v-card>
 </template>
 
