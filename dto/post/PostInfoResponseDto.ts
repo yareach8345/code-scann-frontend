@@ -1,9 +1,9 @@
-import type {UserInfoDto} from "~/dto/user/UserInfoDto";
 import type {Language} from '~/constants/LanguagesList'
+import type WriterInfoDto from "~/dto/user/WriterInfoDto";
 
 export default interface PostInfoResponseDto {
     id: number,
-    writer: UserInfoDto,
+    writer: WriterInfoDto,
     title: string,
     code: string,
     language: Language,

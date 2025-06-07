@@ -18,7 +18,7 @@ const { data: comments, refresh } = await useFetch<CommentDto[]>(`/posts/${postI
 
 const { userInfo, loggedIn } = storeToRefs(useLoginStore())
 
-const useDisplayNickname = (comment: CommentDto) => comment.writerNickname ?? comment.writerId
+const useDisplayNickname = (comment: CommentDto) => getDisplayName( comment.writer )
 
 const router = useRouter()
 const onUserClick = (userId: string) => {
@@ -26,7 +26,7 @@ const onUserClick = (userId: string) => {
 }
 
 const isCommentDataNotEmpty = computed(() => comments.value?.length !== 0)
-const isMyComment = (comment: CommentDto) => comment.writerId === userInfo.value?.id
+const isMyComment = (comment: CommentDto) => comment.writer.id === userInfo.value?.id
 
 const newComment = ref("")
 
@@ -110,8 +110,8 @@ const updateComment = async () => {
         <div v-for="comment in comments">
           <v-divider class="my-1 opacity-20" />
           <div class="d-flex">
-            <div @click="() => onUserClick(comment.writerId)">
-              <v-icon>{{comment.writerIcon}}</v-icon>
+            <div @click="() => onUserClick(comment.writer.id)">
+              <v-icon>{{comment.writer.icon}}</v-icon>
               {{useDisplayNickname(comment)}}
             </div>
             <delete-and-edit-button

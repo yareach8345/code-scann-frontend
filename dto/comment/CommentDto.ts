@@ -1,8 +1,8 @@
+import type WriterInfoDto from '@/dto/user/WriterInfoDto'
+
 export default interface CommentDto {
     commentId: number,
     content: string,
-    writerId: string,
-    writerNickname: string | null,
-    writerIcon: string | null,
+    writer: WriterInfoDto,
     writtenAt: string
 }

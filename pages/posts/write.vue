@@ -23,10 +23,9 @@ const defaultInputs: PostInputs ={
 
 const uploadPost = async (postInputs: PostInputs) => {
   const uploadDto: PostUploadDto = {
-    writerId: userInfo.value!.id,
     ...postInputs,
   }
-  const response = await $fetch<PostUploadResponseDto>("/posts", {
+  await $fetch<PostUploadResponseDto>("/posts", {
     method: "post",
     baseURL: config.public.API_BASE_URL,
     credentials: "include",
