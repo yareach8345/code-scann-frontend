@@ -117,7 +117,9 @@ const moveToPost = async () => {
           <v-icon>{{ post.writer.icon }}</v-icon>
           {{displayName}}
         </div>
-        <post-comment-and-recommend :post="post"/>
+        <post-comment-and-recommend
+            :post="post"
+        />
       </div>
     </v-card-item>
     <template

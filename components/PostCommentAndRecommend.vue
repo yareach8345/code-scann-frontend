@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type PostInfoResponseDto from "~/dto/post/PostInfoResponseDto";
+import type RecommendResponse from '~/dto/post/recommendResponse'
+import { FetchError } from 'ofetch'
 
 interface Props {
   post: PostInfoResponseDto,
@@ -7,9 +9,11 @@ interface Props {
 
 const { post } = defineProps<Props>()
 
-const didIRecommend = ref<boolean>(post.didIRecommend)
+const config = useRuntimeConfig()
 
-const displayRecommendCount = computed(() => post.recommendCnt + (didIRecommend.value ? 1 : 0))
+const didIRecommend = ref(post.didIRecommend)
+
+const displayRecommendCount = ref(post.recommendCnt)
 
 const calcHeartColor = (didIRecommend: boolean, isHovering: boolean) => {
   if(isHovering) {
@@ -19,8 +23,30 @@ const calcHeartColor = (didIRecommend: boolean, isHovering: boolean) => {
   return didIRecommend? 'red-darken-1' : 'black'
 }
 
-const clickRecommendButton = () => {
-  didIRecommend.value = !didIRecommend.value
+const clickRecommendButton = async () => {
+  try {
+    const method = didIRecommend.value === true ? "delete" : "post"
+    console.log(`recommend ${method} 작업 수행`)
+
+    const recommendResponse = await $fetch<RecommendResponse>(`/posts/${post.id}/recommend`, {
+      method: method,
+      baseURL: config.public.API_BASE_URL,
+      credentials: "include",
+      headers: {
+        ...useRequestHeaders(['cookie'])
+      }
+    })
+
+    didIRecommend.value = recommendResponse.didIRecommended
+    displayRecommendCount.value = recommendResponse.recommendCnt
+  } catch (error) {
+    if(error instanceof FetchError && error.status === 401) {
+      alert('본 기능은 로그인 이후 사용하실 수 있습니다.')
+    }
+    else {
+      console.error(error)
+    }
+  }
 }
 </script>
 
