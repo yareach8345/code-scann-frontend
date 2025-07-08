@@ -9,7 +9,7 @@ import DeleteAndEditButton from "~/components/DeleteAndEditButton.vue";
 
 interface Props {
   post: PostInfoResponseDto,
-  showComments: boolean | undefined,
+  showComments?: boolean,
 }
 
 const router = useRouter()
