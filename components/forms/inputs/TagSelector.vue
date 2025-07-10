@@ -1,5 +1,12 @@
 <script setup lang="ts">
-const tagList = ['test-tag1', 'test-tag2', 'test-tag3']
+import type TagDto from '~/dto/tag/TagDto'
+
+const config = useRuntimeConfig()
+const { data } = await useFetch<TagDto>(`/tags`, {
+  method: "get",
+  baseURL: config.public.API_BASE_URL,
+})
+const tagList = data.value?.tags
 
 const value = defineModel<string[]>()
 </script>
