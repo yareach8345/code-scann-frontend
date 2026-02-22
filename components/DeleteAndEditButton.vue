@@ -1,4 +1,10 @@
 <script setup lang="ts">
+interface Props {
+  showLevel: 'none' | 'deleteOnly' | 'all'
+}
+
+const { showLevel } = defineProps<Props>()
+
 interface Emits {
   (e: "updateButtonClicked"): void
   (e: "deleteButtonClicked"): void
@@ -11,13 +17,19 @@ const updateButtonClicked = () => {
 }
 
 const deleteButtonClicked = () => {
+  const confirmResult = confirm("정말로 삭제하시겠습니까?")
+  if(!confirmResult) { return }
+
   emits("deleteButtonClicked")
 }
 </script>
 
 <template>
-  <div>
-    <v-hover v-slot="{ isHovering, props }">
+  <div v-if="showLevel !== 'none'">
+    <v-hover
+        v-if="showLevel !== 'deleteOnly'"
+        v-slot="{ isHovering, props }"
+    >
       <v-icon
           :class=" isHovering ? 'text-green' : '' "
           class="mr-2"

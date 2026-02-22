@@ -45,7 +45,16 @@ const searchWithTag = async (tag: string) => {
 
 const refreshPost = inject(POST_REFRESH_SYMBOL)
 
-const showControlBtns = computed(() => userInfo.value?.id === post.writer.id )
+// const showControlBtns = computed(() => userInfo.value?.id === post.writer.id )
+const controlShowLevel: ComputedRef<'none' | 'deleteOnly' | 'all'> = computed(() => {
+  if(userInfo.value?.id === post.writer.id) {
+    return 'all'
+  } else if (userInfo.value?.role === 'ADMIN') {
+    return 'deleteOnly'
+  } else {
+    return 'none'
+  }
+})
 const moveToUpdatePostPage = async () => {
   await router.push(`/posts/${post.id}/update`)
 }
@@ -81,7 +90,7 @@ const moveToPost = async () => {
         {{ post.title }}
       </div>
       <DeleteAndEditButton
-          v-if="showControlBtns"
+          :show-level="controlShowLevel"
           @update-button-clicked="moveToUpdatePostPage"
           @delete-button-clicked="deletePost"
       />

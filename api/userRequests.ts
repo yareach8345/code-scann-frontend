@@ -5,7 +5,7 @@ import type {UserInfoUpdateDto} from "~/dto/user/UserInfoUpdateDto";
 
 export async function getMyInfo() {
     const { $axios } = useNuxtApp()
-    const { data } = await $axios<UserInfoDto>("/me")
+    const { data } = await $axios<UserInfoDto>("/users/me")
     const userInfo: UserInfoDto = { ...data }
 
     console.log(`getMyInfoResponse=${JSON.stringify(userInfo)}`)
@@ -33,7 +33,7 @@ export async function sendJoinRequest(joinDto: JoinDto) {
 
 export async function sendUpdateRequest(updateDto: UserInfoUpdateDto) {
     const { $axios } = useNuxtApp()
-    const { data } = await $axios.patch<UserInfoDto>("/me", updateDto)
+    const { data } = await $axios.patch<UserInfoDto>("/users/me", updateDto)
     console.log(`updateResult=${JSON.stringify(data)}`)
     return data
 }
@@ -48,6 +48,6 @@ export async function getUserData(id: string) {
 export async function sendQuitRequest() {
     const { $axios } = useNuxtApp()
     console.log(`trying to quit`)
-    const response = await $axios.patch<UserInfoDto>("/me/quit")
+    const response = await $axios.patch<UserInfoDto>("users/me/quit")
     console.log(`quit response=${JSON.stringify(response)}`)
 }

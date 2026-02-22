@@ -3,6 +3,7 @@ import type CommentDto from '@/dto/comment/CommentDto'
 import {useLoginStore} from '@/stores/loginStore'
 import type CommentPostDto from "~/dto/comment/CommentPostDto";
 import type CommentUpdateDto from "~/dto/comment/CommentUpdateDto";
+import type { UserInfoDto } from '~/dto/user/UserInfoDto'
 
 interface Props {
   postId: number
@@ -96,6 +97,22 @@ const updateComment = async () => {
 
   await refresh()
 }
+
+function calcShowLevel(comment: CommentDto, userInfo: UserInfoDto | null) {
+  if(userInfo === null) {
+    return "none"
+  }
+
+  if(comment.writer.id === userInfo.id) {
+    return "all"
+  }
+
+  if(userInfo.role === "ADMIN") {
+    return "deleteOnly"
+  }
+
+  return "none"
+}
 </script>
 
 <template>
@@ -115,7 +132,7 @@ const updateComment = async () => {
               {{useDisplayNickname(comment)}}
             </div>
             <delete-and-edit-button
-                v-if="isMyComment(comment)" class="ml-3"
+                :show-level="calcShowLevel(comment, userInfo)"
                 @delete-button-clicked="() => deleteComment(comment.commentId)"
                 @update-button-clicked="() => updateBtnClick(comment.commentId)"
             />
