@@ -1,75 +1,41 @@
-# Nuxt Minimal Starter
+# Code Snacc Frontend
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## 🖥️ プロジェクト紹介
 
-## Setup
+---
+小さく美味しいコード一切れ
 
-Make sure to install dependencies:
+### 🗓️ 開発期間
+２０２５年４月２１日 ~ ２０２５年７月１０日
 
-```bash
-# npm
-npm install
+### ⚙️ 使用技術
+- Nuxt.js
+- Vuetify
+- axios
+- pinia
 
-# pnpm
-pnpm install
+### 🌐 他のサイト
+![Static Badge](https://img.shields.io/badge/Notion-project-a97bff?logo=notion&link=https%3A%2F%2Fwww.notion.so%2FCodeSnacc-1dcad8559b2d8076b1dcc5a8c7641961)
+![Static Badge](https://img.shields.io/badge/Notion-backend-6db33f?logo=notion&link=https://github.com/yareach8345/code-snacc-backend)
+![Static Badge](https://img.shields.io/badge/Notion-portfolio-aaaaaa?logo=notion&link=https%3A%2F%2Fwww.notion.so%2FPortfolio-JP-257ad8559b2d80a28d1ac84052eea6f2)
 
-# yarn
-yarn install
-
-# bun
-bun install
+## 使用方法
+### environment variables
+```text
+API_BASE_URL=http://localhost:8080
 ```
+| property     | value      |
+|--------------|------------|
+| API_BASE_URL | バックエンドのURL |
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## ページ情報
+| エンドポイント                | 説明               |
+|------------------------|------------------|
+| /                      | メインページ、記事の目録が見える |
+| /join                  | 会員登録ページ          |
+| /user/[id]             | ユーザー情報ページ        |
+| /my-page               | 自分の情報ページ         |
+| /my-page/edit          | 自分の情報修正ページ       |
+| /posts/write           | 記事作成ページ          |
+| /posts/[postId]        | 記事ページ            |
+| /posts/[postId]/update | 記事修正ページ          |

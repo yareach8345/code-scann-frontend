@@ -12,8 +12,6 @@ const config = useRuntimeConfig()
 
 const route = useRoute()
 
-// const searchOptions = ref<PostSearchDto>()
-
 const page = ref(route.query.page ? parseInt(route.query.page as string) : 1)
 
 watch(() => route.query, () => {
