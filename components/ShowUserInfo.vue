@@ -25,7 +25,8 @@ const { data: searchResult } = useFetch<PostSearchResultDto>("/posts", {
   key: `posts-writerId-${userInfo.id}`,
   baseURL: config.public.API_BASE_URL,
   query: {
-    page
+    page,
+    writerId: userInfo.id,
   },
   watch: [ page ]
 })
