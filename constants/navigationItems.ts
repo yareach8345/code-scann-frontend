@@ -13,12 +13,6 @@ const navigationMenus: NavigationMenu[] = [
         to: "/posts/write",
         needLogin: true
     },
-    {
-        icon: "mdi-information",
-        title: "사이트 정보",
-        to: "/about",
-        needLogin: false
-    }
 ]
 
 export default navigationMenus

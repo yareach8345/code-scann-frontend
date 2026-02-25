@@ -17,7 +17,7 @@ const editor = useEditor((root) => Editor.make()
       ctx.set(rootCtx, root)
       ctx.set(defaultValueCtx, content.value)
       ctx.get(listenerCtx).markdownUpdated((_ctx, markdown) => {
-        content.value = markdown
+        content.value = markdown.replaceAll("<br />","")
       })
     })
     .config(nord)
